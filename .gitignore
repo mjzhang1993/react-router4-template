@@ -1,0 +1,7 @@
+*.tags
+*.tags1
+*/.DS_Store
+*.DS_Store
+*/.idea/
+.idea/
+/node_modules/

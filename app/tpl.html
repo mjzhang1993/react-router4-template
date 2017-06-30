@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+      <script>
+         var iScale = 1;
+         var userScal = window.devicePixelRatio;
+         iScale = iScale / userScal;
+         document.write('<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=' + iScale + ",minimum-scale=" + iScale + ",maximum-scale=" + iScale + '">');
+         var iWidth = document.documentElement.clientWidth;
+         // 用来设置 font-size 的 rem => px 
+         if (iWidth / userScal >= 750) {
+            document.getElementsByTagName("html")[0].style.fontSize = 100 * userScal + 'px';
+         } else {
+            document.getElementsByTagName("html")[0].style.fontSize = iWidth * 100 / 375 + "px";
+         }
+      </script>
+      <meta name="renderer" content="webkit">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="browsermode" content="application">
+      <meta name="full-screen" content="yes">
+      <meta name="screen-orientation"content="portrait">
+      <title>webpack-react-template</title>
+   </head>
+
+   <body>
+      <div id="app"></div>
+   </body>
+
+</html>

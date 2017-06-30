@@ -1,0 +1,21 @@
+{
+    "presets": [
+        ["es2015", {
+            "modules": false
+        }],
+        "stage-2",
+        "react"
+    ],
+    "plugins": [
+        "react-hot-loader/babel",
+        "transform-object-assign",
+        "transform-decorators-legacy"
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                "react-hot-loader/babel"
+            ]
+        }
+    }
+}

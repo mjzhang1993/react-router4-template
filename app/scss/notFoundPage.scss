@@ -1,0 +1,18 @@
+/* Home 容器组件样式 */
+@import "common";
+
+#not-found-page{
+   @include pa(0,0,0,0);
+   @include flexv;
+   justify-content: space-around;
+   .not-found-btn{
+      button{
+         width: 1rem;
+         height: .3rem;
+         border-radius: .05rem;
+         border: none;
+         background: #333;
+         color: #fff;
+      }
+   }
+}
