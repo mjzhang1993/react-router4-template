@@ -7,11 +7,16 @@ import '../scss/index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
+import {Provider} from 'react-redux';
+import {ConnectedRouter} from 'react-router-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import createHistory from 'history/createBrowserHistory';
 
 // 引入原始的配置模块
-import Root from './routes.js';
+import store from './store/index';
+import Root from './routes';
 
+const history = createHistory();
 const mountNode = document.getElementById('app');
 
 // react 的插件，提供onTouchTap()
@@ -21,7 +26,11 @@ injectTapEventPlugin();
 const render = (Component) => {
 	ReactDOM.render((
 		<AppContainer>
-			<Component/>
+			<Provider store={store}>
+				<ConnectedRouter history={history} basename="">
+					<Component/>
+				</ConnectedRouter>
+			</Provider>
 		</AppContainer>
 	), mountNode);
 };
@@ -31,11 +40,12 @@ console.log(process.env.NODE_ENV);
 
 if (module.hot && process.env.NODE_ENV !== 'production') {
 	module.hot.accept('./routes.js', (err) => {
+		console.log('module hot');
 		if (err) {
 			console.log(err);
 		}
-		// 卸载 react 模块后 重装
-		ReactDOM.unmountComponentAtNode(mountNode);
-		render(Root);
+		const NextComponent = require('./routes.js').default; // eslint-disable-line
+
+		render(NextComponent);
 	});
 }

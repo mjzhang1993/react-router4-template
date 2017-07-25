@@ -54,7 +54,6 @@ module.exports = function () {
          //       postcss: [autoprefixer(config.autoConfig)]
          //    }
          // }),
-         new webpack.optimize.ModuleConcatenationPlugin(),
          new HtmlWebpackPlugin({
    			template: defPath.TPL_PATH,
    			title: 'Hello World app',

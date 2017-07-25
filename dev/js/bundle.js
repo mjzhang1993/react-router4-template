@@ -1,636 +1,101 @@
-webpackJsonp([0],{
+webpackJsonp([1],{
 
-/***/ "./app/js/index.js":
+/***/ "./app/js/actions/rootAct.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_index_scss__ = __webpack_require__("./app/scss/index.scss");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_index_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scss_index_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__("./node_modules/react-dom/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_hot_loader__ = __webpack_require__("./node_modules/react-hot-loader/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_hot_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_hot_loader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_tap_event_plugin__ = __webpack_require__("./node_modules/react-tap-event-plugin/src/injectTapEventPlugin.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_tap_event_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_tap_event_plugin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__routes_js__ = __webpack_require__("./app/js/routes.js");
+/* harmony export (immutable) */ __webpack_exports__["b"] = getMemberList;
+/* harmony export (immutable) */ __webpack_exports__["a"] = changeInputInfo;
+/* harmony export (immutable) */ __webpack_exports__["c"] = postNewInfo;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_js__ = __webpack_require__("./app/js/constants.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_request__ = __webpack_require__("./app/js/utils/request.js");
 /*
-   app/js/index.js
-   入口文件, 配置 webpack 热加载模块
+   总的action，包括登录和退出登录
 */
 
 
 
 
+// 获取 成员信息列表
+function getMemberList() {
+   return function (dispatch) {
+      Object(__WEBPACK_IMPORTED_MODULE_1__utils_request__["a" /* get */])('/list').then(function (resp) {
+         dispatch({
+            type: __WEBPACK_IMPORTED_MODULE_0__constants_js__["b" /* GET_MEMBER_LIST */],
+            msg: resp
+         });
+      }).catch(function (err) {
+         console.log(err);
+      });
+   };
+}
 
+// 改变新增的本地的成员信息
+function changeInputInfo(newInfo) {
+   return { type: __WEBPACK_IMPORTED_MODULE_0__constants_js__["a" /* CHANGE_INPUT_INFO */], msg: newInfo };
+}
 
-
-// 引入原始的配置模块
-
-
-var mountNode = document.getElementById('app');
-
-// react 的插件，提供onTouchTap()
-__WEBPACK_IMPORTED_MODULE_4_react_tap_event_plugin___default()();
-
-// 封装 render
-var render = function render(Component) {
-	__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-		__WEBPACK_IMPORTED_MODULE_3_react_hot_loader__["AppContainer"],
-		null,
-		__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Component, null)
-	), mountNode);
-};
-
-render(__WEBPACK_IMPORTED_MODULE_5__routes_js__["default"]);
-console.log("development");
-
-if (true) {
-	module.hot.accept("./app/js/routes.js", function(__WEBPACK_OUTDATED_DEPENDENCIES__) { /* harmony import */ __WEBPACK_IMPORTED_MODULE_5__routes_js__ = __webpack_require__("./app/js/routes.js"); (function (err) {
-		if (err) {
-			console.log(err);
-		}
-		// 卸载 react 模块后 重装
-		__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.unmountComponentAtNode(mountNode);
-		render(__WEBPACK_IMPORTED_MODULE_5__routes_js__["default"]);
-	})(__WEBPACK_OUTDATED_DEPENDENCIES__); });
+// 提交新成员信息
+function postNewInfo(newInfo) {
+   console.log('newInfo', newInfo);
+   return function (dispatch) {
+      Object(__WEBPACK_IMPORTED_MODULE_1__utils_request__["b" /* post */])('/list', newInfo).then(function () {
+         // 此处受json-server 限制 post会返回发送出去的数据 使用 get再获取一遍
+         return Object(__WEBPACK_IMPORTED_MODULE_1__utils_request__["a" /* get */])('/list');
+      }).then(function (res) {
+         console.log('res', res);
+         dispatch({
+            type: __WEBPACK_IMPORTED_MODULE_0__constants_js__["b" /* GET_MEMBER_LIST */],
+            msg: res
+         });
+      }).catch(function (err) {
+         console.log(err);
+      });
+   };
 }
 ;
 
 var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
 
-	__REACT_HOT_LOADER__.register(mountNode, 'mountNode', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/index.js');
+   __REACT_HOT_LOADER__.register(getMemberList, 'getMemberList', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/actions/rootAct.js');
 
-	__REACT_HOT_LOADER__.register(render, 'render', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/index.js');
+   __REACT_HOT_LOADER__.register(changeInputInfo, 'changeInputInfo', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/actions/rootAct.js');
+
+   __REACT_HOT_LOADER__.register(postNewInfo, 'postNewInfo', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/actions/rootAct.js');
 }();
 
 ;
 ;
 
 var _temp2 = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
 }();
 
 ;
 
 /***/ }),
 
-/***/ "./app/js/routes.js":
+/***/ "./app/js/components/AppCom/index.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/BrowserRouter.js
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__("./node_modules/prop-types/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createBrowserHistory__ = __webpack_require__("./node_modules/history/createBrowserHistory.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_history_createBrowserHistory__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__("./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_app_scss__ = __webpack_require__("./app/scss/app.scss");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_app_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__scss_app_scss__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-/**
- * The public API for a <Router> that uses HTML5 history.
- */
-
-var BrowserRouter = function (_React$Component) {
-  _inherits(BrowserRouter, _React$Component);
-
-  function BrowserRouter() {
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, BrowserRouter);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.history = __WEBPACK_IMPORTED_MODULE_2_history_createBrowserHistory___default()(_this.props), _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  BrowserRouter.prototype.render = function render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_router__["Router"], { history: this.history, children: this.props.children });
-  };
-
-  return BrowserRouter;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-
-BrowserRouter.propTypes = {
-  basename: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  forceRefresh: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  getUserConfirmation: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
-  keyLength: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
-  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.node
-};
-
-
-/* harmony default export */ var BrowserRouter_defaultExport = (BrowserRouter);
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/HashRouter.js
-/* harmony import */ var HashRouter___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var HashRouter___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(HashRouter___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var HashRouter___WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__("./node_modules/prop-types/index.js");
-/* harmony import */ var HashRouter___WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(HashRouter___WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createHashHistory__ = __webpack_require__("./node_modules/history/createHashHistory.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_history_createHashHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_history_createHashHistory__);
-/* harmony import */ var HashRouter___WEBPACK_IMPORTED_MODULE_3_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-function HashRouter__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function HashRouter__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function HashRouter__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-/**
- * The public API for a <Router> that uses window.location.hash.
- */
-
-var HashRouter = function (_React$Component) {
-  HashRouter__inherits(HashRouter, _React$Component);
-
-  function HashRouter() {
-    var _temp, _this, _ret;
-
-    HashRouter__classCallCheck(this, HashRouter);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = HashRouter__possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.history = __WEBPACK_IMPORTED_MODULE_2_history_createHashHistory___default()(_this.props), _temp), HashRouter__possibleConstructorReturn(_this, _ret);
-  }
-
-  HashRouter.prototype.render = function render() {
-    return HashRouter___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(HashRouter___WEBPACK_IMPORTED_MODULE_3_react_router__["Router"], { history: this.history, children: this.props.children });
-  };
-
-  return HashRouter;
-}(HashRouter___WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-
-HashRouter.propTypes = {
-  basename: HashRouter___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  getUserConfirmation: HashRouter___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
-  hashType: HashRouter___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(['hashbang', 'noslash', 'slash']),
-  children: HashRouter___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.node
-};
-
-
-/* harmony default export */ var HashRouter_defaultExport = (HashRouter);
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/Link.js
-/* harmony import */ var Link___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var Link___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(Link___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var Link___WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__("./node_modules/prop-types/index.js");
-/* harmony import */ var Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(Link___WEBPACK_IMPORTED_MODULE_1_prop_types__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function Link__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function Link__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function Link__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-var isModifiedEvent = function isModifiedEvent(event) {
-  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
-};
-
-/**
- * The public API for rendering a history-aware <a>.
- */
-
-var Link = function (_React$Component) {
-  Link__inherits(Link, _React$Component);
-
-  function Link() {
-    var _temp, _this, _ret;
-
-    Link__classCallCheck(this, Link);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = Link__possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.handleClick = function (event) {
-      if (_this.props.onClick) _this.props.onClick(event);
-
-      if (!event.defaultPrevented && // onClick prevented default
-      event.button === 0 && // ignore right clicks
-      !_this.props.target && // let browser handle "target=_blank" etc.
-      !isModifiedEvent(event) // ignore clicks with modifier keys
-      ) {
-          event.preventDefault();
-
-          var history = _this.context.router.history;
-          var _this$props = _this.props,
-              replace = _this$props.replace,
-              to = _this$props.to;
-
-
-          if (replace) {
-            history.replace(to);
-          } else {
-            history.push(to);
-          }
-        }
-    }, _temp), Link__possibleConstructorReturn(_this, _ret);
-  }
-
-  Link.prototype.render = function render() {
-    var _props = this.props,
-        replace = _props.replace,
-        to = _props.to,
-        props = _objectWithoutProperties(_props, ['replace', 'to']); // eslint-disable-line no-unused-vars
-
-    var href = this.context.router.history.createHref(typeof to === 'string' ? { pathname: to } : to);
-
-    return Link___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('a', _extends({}, props, { onClick: this.handleClick, href: href }));
-  };
-
-  return Link;
-}(Link___WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-
-Link.propTypes = {
-  onClick: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
-  target: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  replace: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  to: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object]).isRequired
-};
-Link.defaultProps = {
-  replace: false
-};
-Link.contextTypes = {
-  router: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.shape({
-    history: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.shape({
-      push: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired,
-      replace: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired,
-      createHref: Link___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired
-    }).isRequired
-  }).isRequired
-};
-
-
-/* harmony default export */ var Link_defaultExport = (Link);
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/MemoryRouter.js
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/NavLink.js
-/* harmony import */ var NavLink___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var NavLink___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(NavLink___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__("./node_modules/prop-types/index.js");
-/* harmony import */ var NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-var NavLink__extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function NavLink__objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-
-
-
-
-
-/**
- * A <Link> wrapper that knows if it's "active" or not.
- */
-var NavLink_NavLink = function NavLink(_ref) {
-  var to = _ref.to,
-      exact = _ref.exact,
-      strict = _ref.strict,
-      location = _ref.location,
-      activeClassName = _ref.activeClassName,
-      className = _ref.className,
-      activeStyle = _ref.activeStyle,
-      style = _ref.style,
-      getIsActive = _ref.isActive,
-      rest = NavLink__objectWithoutProperties(_ref, ['to', 'exact', 'strict', 'location', 'activeClassName', 'className', 'activeStyle', 'style', 'isActive']);
-
-  return NavLink___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router__["Route"], {
-    path: (typeof to === 'undefined' ? 'undefined' : _typeof(to)) === 'object' ? to.pathname : to,
-    exact: exact,
-    strict: strict,
-    location: location,
-    children: function children(_ref2) {
-      var location = _ref2.location,
-          match = _ref2.match;
-
-      var isActive = !!(getIsActive ? getIsActive(match, location) : match);
-
-      return NavLink___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Link_defaultExport, NavLink__extends({
-        to: to,
-        className: isActive ? [activeClassName, className].filter(function (i) {
-          return i;
-        }).join(' ') : className,
-        style: isActive ? NavLink__extends({}, style, activeStyle) : style
-      }, rest));
-    }
-  });
-};
-
-NavLink_NavLink.propTypes = {
-  to: Link_defaultExport.propTypes.to,
-  exact: NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  strict: NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  location: NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
-  activeClassName: NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  className: NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  activeStyle: NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
-  style: NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
-  isActive: NavLink___WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func
-};
-
-NavLink_NavLink.defaultProps = {
-  activeClassName: 'active'
-};
-
-/* harmony default export */ var NavLink_defaultExport = (NavLink_NavLink);
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/Prompt.js
-/* harmony import */ var Prompt___WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/Redirect.js
-/* harmony import */ var Redirect___WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/Route.js
-/* harmony import */ var Route___WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/Router.js
-/* harmony import */ var Router___WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/StaticRouter.js
-/* harmony import */ var StaticRouter___WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/Switch.js
-/* harmony import */ var Switch___WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/matchPath.js
-/* harmony import */ var matchPath___WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/withRouter.js
-/* harmony import */ var withRouter___WEBPACK_IMPORTED_MODULE_0_react_router__ = __webpack_require__("./node_modules/react-router/es/index.js");
-
-// CONCATENATED MODULE: ./node_modules/react-router-dom/es/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// CONCATENATED MODULE: ./app/js/store/configureStore.js
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("./node_modules/redux/es/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_redux__ = __webpack_require__("./node_modules/react-router-redux/es/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__("./node_modules/redux-thunk/lib/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__ = __webpack_require__("./node_modules/history/createBrowserHistory.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__);
-var configureStore__typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-/*
-   创建一个构造store的函数，真正的store在入口文件中创造
-*/
-
-
-
-// 引入thunk 中间件，处理异步操作
-
-
-
-// 创建 route 的中间件
-var history = __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory___default()();
-var routeMiddleware = Object(__WEBPACK_IMPORTED_MODULE_1_react_router_redux__["routerMiddleware"])(history);
-
-var middleware = [routeMiddleware, __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default.a];
-/*
-	辅助使用chrome浏览器进行redux调试
-*/
-var composeEnhancers = "development" !== 'production' && (typeof window === 'undefined' ? 'undefined' : configureStore__typeof(window)) === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-   // Specify here name, actionsBlacklist, actionsCreators and other options
-}) : __WEBPACK_IMPORTED_MODULE_0_redux__["compose"];
-
-/*
-   调用 applyMiddleware ，使用 middleware 来增强 createStore
-*/
-var configureStore = composeEnhancers(__WEBPACK_IMPORTED_MODULE_0_redux__["applyMiddleware"].apply(undefined, middleware))(__WEBPACK_IMPORTED_MODULE_0_redux__["createStore"]);
-
-var _default = configureStore;
-var _default2 = _default;
-/* harmony default export */ var configureStore_defaultExport = (_default2);
-;
-
-var _temp = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-
-   __REACT_HOT_LOADER__.register(history, 'history', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
-
-   __REACT_HOT_LOADER__.register(routeMiddleware, 'routeMiddleware', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
-
-   __REACT_HOT_LOADER__.register(middleware, 'middleware', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
-
-   __REACT_HOT_LOADER__.register(composeEnhancers, 'composeEnhancers', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
-
-   __REACT_HOT_LOADER__.register(configureStore, 'configureStore', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
-
-   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
-
-   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
-}();
-
-;
-;
-
-var _temp2 = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/reducers/rootReduer.js
-var rootReduer__extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-/*
-   整体的通用的状态
-*/
-
-var initialState = {
-	memberList: [],
-	inputInfo: {
-		name: '',
-		tel: ''
-	}
-};
-
-function rootReducer() {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-	var action = arguments[1];
-
-	switch (action.type) {
-		case 'CHANGE_INPUT_INFO':
-			return rootReduer__extends({}, state, { inputInfo: action.msg });
-		case 'GET_MEMBER_LIST':
-			return rootReduer__extends({}, state, { memberList: action.msg });
-		default:
-			return state;
-	}
-}
-;
-
-var rootReduer__temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(initialState, 'initialState', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/rootReduer.js');
-
-	__REACT_HOT_LOADER__.register(rootReducer, 'rootReducer', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/rootReduer.js');
-}();
-
-;
-;
-
-var rootReduer__temp2 = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/reducers/index.js
-/* harmony import */ var reducers___WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("./node_modules/redux/es/index.js");
-/* harmony import */ var reducers___WEBPACK_IMPORTED_MODULE_1_react_router_redux__ = __webpack_require__("./node_modules/react-router-redux/es/index.js");
-// 引入reducer
-
-
-
-
-// 合并到主reducer
-var reducer = Object(reducers___WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"])({
-	rootReducer: rootReducer,
-	routing: reducers___WEBPACK_IMPORTED_MODULE_1_react_router_redux__["routerReducer"]
-});
-
-var reducers__default = reducer;
-var reducers__default2 = reducers__default;
-/* harmony default export */ var reducers_defaultExport = (reducers__default2);
-;
-
-var reducers__temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-
-	__REACT_HOT_LOADER__.register(reducer, 'reducer', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/index.js');
-
-	__REACT_HOT_LOADER__.register(reducers__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/index.js');
-
-	__REACT_HOT_LOADER__.register(reducers__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/index.js');
-}();
-
-;
-;
-
-var reducers__temp2 = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/store/index.js
-/*
-   创建唯一 store 并输出
-*/
-
-
-
-// 给增强后的store传入reducer
-var store = configureStore_defaultExport(reducers_defaultExport);
-
-var store__default = store;
-var store__default2 = store__default;
-/* harmony default export */ var store_defaultExport = (store__default2);
-;
-
-var store__temp = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-
-   __REACT_HOT_LOADER__.register(store, 'store', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/index.js');
-
-   __REACT_HOT_LOADER__.register(store__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/index.js');
-
-   __REACT_HOT_LOADER__.register(store__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/index.js');
-}();
-
-;
-;
-
-var store__temp2 = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/components/AppCom/index.js
-/* harmony import */ var AppCom___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var AppCom___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(AppCom___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_app_scss__ = __webpack_require__("./app/scss/app.scss");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_app_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__scss_app_scss__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function AppCom__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function AppCom__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function AppCom__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /*
    App 容器组件的子组件，顶部状态栏
@@ -642,27 +107,27 @@ function AppCom__inherits(subClass, superClass) { if (typeof superClass !== "fun
 
 
 var AppCom = function (_Component) {
-   AppCom__inherits(AppCom, _Component);
+   _inherits(AppCom, _Component);
 
    function AppCom(props) {
-      AppCom__classCallCheck(this, AppCom);
+      _classCallCheck(this, AppCom);
 
-      return AppCom__possibleConstructorReturn(this, (AppCom.__proto__ || Object.getPrototypeOf(AppCom)).call(this, props));
+      return _possibleConstructorReturn(this, (AppCom.__proto__ || Object.getPrototypeOf(AppCom)).call(this, props));
    }
 
    _createClass(AppCom, [{
       key: 'render',
       value: function render() {
 
-         return AppCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { id: 'app-container' },
-            AppCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                'header',
                { className: 'app-header' },
                '\u6210\u5458\u5217\u8868'
             ),
-            AppCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                'div',
                { className: 'app-body' },
                this.props.children
@@ -672,126 +137,167 @@ var AppCom = function (_Component) {
    }]);
 
    return AppCom;
-}(AppCom___WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-var AppCom__default = __WEBPACK_IMPORTED_MODULE_0_react_router__["withRouter"](AppCom);
+var _default = Object(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["withRouter"])(AppCom);
 
-var AppCom__default2 = AppCom__default;
+var _default2 = _default;
 
 
-/* harmony default export */ var AppCom_defaultExport = (AppCom__default2);
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
 ;
 
-var AppCom__temp = function () {
+var _temp = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 
    __REACT_HOT_LOADER__.register(AppCom, 'AppCom', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/AppCom/index.js');
 
-   __REACT_HOT_LOADER__.register(AppCom__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/AppCom/index.js');
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/AppCom/index.js');
 
-   __REACT_HOT_LOADER__.register(AppCom__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/AppCom/index.js');
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/AppCom/index.js');
 }();
 
 ;
 ;
 
-var AppCom__temp2 = function () {
+var _temp2 = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 }();
 
 ;
-// CONCATENATED MODULE: ./app/js/containers/App.js
-/* harmony import */ var App___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var App___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(App___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
-var App__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function App__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/***/ }),
 
-function App__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+/***/ "./app/js/components/HomeCom/MemberList.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function App__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pure_render_decorator__ = __webpack_require__("./node_modules/pure-render-decorator/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pure_render_decorator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_pure_render_decorator__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /*
-   App 应用总容器
+   添加新成员
 */
 
 
 
+var MemberList = function (_Component) {
+   _inherits(MemberList, _Component);
 
+   function MemberList(props) {
+      _classCallCheck(this, MemberList);
 
-var App_App = function (_Component) {
-   App__inherits(App, _Component);
-
-   function App(props) {
-      App__classCallCheck(this, App);
-
-      return App__possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+      return _possibleConstructorReturn(this, (MemberList.__proto__ || Object.getPrototypeOf(MemberList)).call(this, props));
    }
 
-   App__createClass(App, [{
+   _createClass(MemberList, [{
       key: 'render',
       value: function render() {
+         var memberList = this.props.memberList;
 
-         return App___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            AppCom_defaultExport,
-            null,
-            this.props.children
+         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'member-list-wrap' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+               'ul',
+               { className: 'member-list' },
+               memberList.map(function (item, i) {
+                  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                     'li',
+                     { key: i },
+                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'p',
+                        null,
+                        'name:',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                           'span',
+                           null,
+                           item.name
+                        )
+                     ),
+                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'p',
+                        null,
+                        'tel:',
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                           'span',
+                           null,
+                           item.tel
+                        )
+                     )
+                  );
+               })
+            )
          );
       }
    }]);
 
-   return App;
-}(App___WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+   return MemberList;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-var App__default = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])()(App_App);
+var _default = __WEBPACK_IMPORTED_MODULE_1_pure_render_decorator___default()(MemberList);
 
-var App__default2 = App__default;
+var _default2 = _default;
 
 
-/* harmony default export */ var App_defaultExport = (App__default2);
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
 ;
 
-var App__temp = function () {
+var _temp = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 
-   __REACT_HOT_LOADER__.register(App_App, 'App', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/App.js');
+   __REACT_HOT_LOADER__.register(MemberList, 'MemberList', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/MemberList.js');
 
-   __REACT_HOT_LOADER__.register(App__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/App.js');
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/MemberList.js');
 
-   __REACT_HOT_LOADER__.register(App__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/App.js');
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/MemberList.js');
 }();
 
 ;
 ;
 
-var App__temp2 = function () {
+var _temp2 = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 }();
 
 ;
-// CONCATENATED MODULE: ./app/js/components/HomeCom/NewMember.js
-/* harmony import */ var NewMember___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var NewMember___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(NewMember___WEBPACK_IMPORTED_MODULE_0_react__);
+
+/***/ }),
+
+/***/ "./app/js/components/HomeCom/NewMember.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pure_render_decorator__ = __webpack_require__("./node_modules/pure-render-decorator/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pure_render_decorator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_pure_render_decorator__);
-var NewMember__extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var NewMember__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function NewMember__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function NewMember__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function NewMember__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /*
    添加新成员
@@ -800,12 +306,12 @@ function NewMember__inherits(subClass, superClass) { if (typeof superClass !== "
 
 
 var NewMember = function (_Component) {
-   NewMember__inherits(NewMember, _Component);
+   _inherits(NewMember, _Component);
 
    function NewMember(props) {
-      NewMember__classCallCheck(this, NewMember);
+      _classCallCheck(this, NewMember);
 
-      var _this = NewMember__possibleConstructorReturn(this, (NewMember.__proto__ || Object.getPrototypeOf(NewMember)).call(this, props));
+      var _this = _possibleConstructorReturn(this, (NewMember.__proto__ || Object.getPrototypeOf(NewMember)).call(this, props));
 
       _this.handleClick = function () {
          return _this.__handleClick__REACT_HOT_LOADER__.apply(_this, arguments);
@@ -814,14 +320,14 @@ var NewMember = function (_Component) {
       return _this;
    }
 
-   NewMember__createClass(NewMember, [{
+   _createClass(NewMember, [{
       key: 'handleChange',
       value: function handleChange(mold, e) {
          var _props = this.props,
              changeInputInfo = _props.changeInputInfo,
              inputInfo = _props.inputInfo;
 
-         var newInfo = NewMember__extends({}, inputInfo);
+         var newInfo = _extends({}, inputInfo);
 
          newInfo[mold] = e.target.value;
 
@@ -862,26 +368,26 @@ var NewMember = function (_Component) {
              tel = _props$inputInfo.tel;
 
 
-         return NewMember___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'new-member' },
-            NewMember___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                'p',
                null,
                '\u59D3\u540D\uFF1A',
-               NewMember___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', value: name, onChange: function onChange(e) {
+               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', value: name, onChange: function onChange(e) {
                      return _this2.handleChange('name', e);
                   } })
             ),
-            NewMember___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                'p',
                null,
                '\u7535\u8BDD\uFF1A',
-               NewMember___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'tel', value: tel, onChange: function onChange(e) {
+               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'tel', value: tel, onChange: function onChange(e) {
                      return _this2.handleChange('tel', e);
                   } })
             ),
-            NewMember___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                'button',
                { onClick: this.handleClick },
                '\u63D0\u4EA4'
@@ -891,153 +397,60 @@ var NewMember = function (_Component) {
    }]);
 
    return NewMember;
-}(NewMember___WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-var NewMember__default = __WEBPACK_IMPORTED_MODULE_1_pure_render_decorator___default()(NewMember);
+var _default = __WEBPACK_IMPORTED_MODULE_1_pure_render_decorator___default()(NewMember);
 
-var NewMember__default2 = NewMember__default;
+var _default2 = _default;
 
 
-/* harmony default export */ var NewMember_defaultExport = (NewMember__default2);
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
 ;
 
-var NewMember__temp = function () {
+var _temp = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 
    __REACT_HOT_LOADER__.register(NewMember, 'NewMember', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/NewMember.js');
 
-   __REACT_HOT_LOADER__.register(NewMember__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/NewMember.js');
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/NewMember.js');
 
-   __REACT_HOT_LOADER__.register(NewMember__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/NewMember.js');
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/NewMember.js');
 }();
 
 ;
 ;
 
-var NewMember__temp2 = function () {
+var _temp2 = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 }();
 
 ;
-// CONCATENATED MODULE: ./app/js/components/HomeCom/MemberList.js
-/* harmony import */ var MemberList___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var MemberList___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(MemberList___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var MemberList___WEBPACK_IMPORTED_MODULE_1_pure_render_decorator__ = __webpack_require__("./node_modules/pure-render-decorator/index.js");
-/* harmony import */ var MemberList___WEBPACK_IMPORTED_MODULE_1_pure_render_decorator___default = __webpack_require__.n(MemberList___WEBPACK_IMPORTED_MODULE_1_pure_render_decorator__);
-var MemberList__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function MemberList__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/***/ }),
 
-function MemberList__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+/***/ "./app/js/components/HomeCom/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function MemberList__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/*
-   添加新成员
-*/
-
-
-
-var MemberList = function (_Component) {
-   MemberList__inherits(MemberList, _Component);
-
-   function MemberList(props) {
-      MemberList__classCallCheck(this, MemberList);
-
-      return MemberList__possibleConstructorReturn(this, (MemberList.__proto__ || Object.getPrototypeOf(MemberList)).call(this, props));
-   }
-
-   MemberList__createClass(MemberList, [{
-      key: 'render',
-      value: function render() {
-         var memberList = this.props.memberList;
-
-         return MemberList___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'member-list-wrap' },
-            MemberList___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-               'ul',
-               { className: 'member-list' },
-               memberList.map(function (item, i) {
-                  return MemberList___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                     'li',
-                     { key: i },
-                     MemberList___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'p',
-                        null,
-                        'name:',
-                        MemberList___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                           'span',
-                           null,
-                           item.name
-                        )
-                     ),
-                     MemberList___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'p',
-                        null,
-                        'tel:',
-                        MemberList___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                           'span',
-                           null,
-                           item.tel
-                        )
-                     )
-                  );
-               })
-            )
-         );
-      }
-   }]);
-
-   return MemberList;
-}(MemberList___WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-var MemberList__default = MemberList___WEBPACK_IMPORTED_MODULE_1_pure_render_decorator___default()(MemberList);
-
-var MemberList__default2 = MemberList__default;
-
-
-/* harmony default export */ var MemberList_defaultExport = (MemberList__default2);
-;
-
-var MemberList__temp = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-
-   __REACT_HOT_LOADER__.register(MemberList, 'MemberList', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/MemberList.js');
-
-   __REACT_HOT_LOADER__.register(MemberList__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/MemberList.js');
-
-   __REACT_HOT_LOADER__.register(MemberList__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/MemberList.js');
-}();
-
-;
-;
-
-var MemberList__temp2 = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/components/HomeCom/index.js
-/* harmony import */ var HomeCom___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var HomeCom___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(HomeCom___WEBPACK_IMPORTED_MODULE_0_react__);
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeCom; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__("./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NewMember__ = __webpack_require__("./app/js/components/HomeCom/NewMember.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemberList__ = __webpack_require__("./app/js/components/HomeCom/MemberList.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__scss_home_scss__ = __webpack_require__("./app/scss/home.scss");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__scss_home_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__scss_home_scss__);
-var HomeCom__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function HomeCom__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function HomeCom__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function HomeCom__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /*
    Home 容器组件的子组件，信息展示
@@ -1050,16 +463,16 @@ function HomeCom__inherits(subClass, superClass) { if (typeof superClass !== "fu
 
 
 
-var HomeCom_HomeCom = function (_Component) {
-   HomeCom__inherits(HomeCom, _Component);
+var HomeCom = function (_Component) {
+   _inherits(HomeCom, _Component);
 
    function HomeCom(props) {
-      HomeCom__classCallCheck(this, HomeCom);
+      _classCallCheck(this, HomeCom);
 
-      return HomeCom__possibleConstructorReturn(this, (HomeCom.__proto__ || Object.getPrototypeOf(HomeCom)).call(this, props));
+      return _possibleConstructorReturn(this, (HomeCom.__proto__ || Object.getPrototypeOf(HomeCom)).call(this, props));
    }
 
-   HomeCom__createClass(HomeCom, [{
+   _createClass(HomeCom, [{
       key: 'componentWillMount',
       value: function componentWillMount() {
          this.props.getMemberList();
@@ -1075,17 +488,17 @@ var HomeCom_HomeCom = function (_Component) {
              inputInfo = rootState.inputInfo;
 
 
-         return HomeCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { id: 'home-container' },
-            HomeCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(NewMember_defaultExport, {
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__NewMember__["a" /* default */], {
                inputInfo: inputInfo,
                changeInputInfo: changeInputInfo,
                postNewInfo: postNewInfo
             }),
-            HomeCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(MemberList_defaultExport, { memberList: memberList }),
-            HomeCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-               Link_defaultExport,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__MemberList__["a" /* default */], { memberList: memberList }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+               __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Link"],
                { to: { pathname: '/test', search: '?name=homename', state: { mold: 'add' } }, className: 'home-link' },
                '\u70B9\u51FB\u8DF3\u8F6C\u5230 test page'
             )
@@ -1094,30 +507,156 @@ var HomeCom_HomeCom = function (_Component) {
    }]);
 
    return HomeCom;
-}(HomeCom___WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 
 ;
 
-var HomeCom__temp = function () {
+var _temp = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 
-   __REACT_HOT_LOADER__.register(HomeCom_HomeCom, 'HomeCom', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/index.js');
+   __REACT_HOT_LOADER__.register(HomeCom, 'HomeCom', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/HomeCom/index.js');
 }();
 
 ;
 ;
 
-var HomeCom__temp2 = function () {
+var _temp2 = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 }();
 
 ;
-// CONCATENATED MODULE: ./app/js/constants.js
+
+/***/ }),
+
+/***/ "./app/js/components/TestCom/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__("./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_home_scss__ = __webpack_require__("./app/scss/home.scss");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_home_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__scss_home_scss__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/*
+   Test 容器组件的子组件，信息展示
+*/
+
+
+
+
+
+var TestCom = function (_Component) {
+   _inherits(TestCom, _Component);
+
+   function TestCom(props) {
+      _classCallCheck(this, TestCom);
+
+      var _this = _possibleConstructorReturn(this, (TestCom.__proto__ || Object.getPrototypeOf(TestCom)).call(this, props));
+
+      _this.handleClick = function () {
+         return _this.__handleClick__REACT_HOT_LOADER__.apply(_this, arguments);
+      };
+
+      return _this;
+   }
+
+   _createClass(TestCom, [{
+      key: '__handleClick__REACT_HOT_LOADER__',
+      value: function __handleClick__REACT_HOT_LOADER__() {
+         return this.__handleClick__REACT_HOT_LOADER__.apply(this, arguments);
+      }
+   }, {
+      key: '__handleClick__REACT_HOT_LOADER__',
+      value: function __handleClick__REACT_HOT_LOADER__() {
+         return this.__handleClick__REACT_HOT_LOADER__.apply(this, arguments);
+      }
+   }, {
+      key: '__handleClick__REACT_HOT_LOADER__',
+      value: function __handleClick__REACT_HOT_LOADER__() {
+         return this.__handleClick__REACT_HOT_LOADER__.apply(this, arguments);
+      }
+   }, {
+      key: '__handleClick__REACT_HOT_LOADER__',
+      value: function __handleClick__REACT_HOT_LOADER__() {
+         // withRouter 使组件获得了 location history match 三个属性
+         this.props.history.push({
+            pathname: '/home',
+            search: '?name=testname'
+         });
+      }
+   }, {
+      key: 'render',
+      value: function render() {
+         console.log(this.props);
+
+         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'test-container' },
+            'this is Test Page',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+               'button',
+               { onClick: this.handleClick },
+               '\u70B9\u51FB\u56DE\u5230 home page'
+            )
+         );
+      }
+   }]);
+
+   return TestCom;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+var _default = Object(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["withRouter"])(TestCom);
+
+var _default2 = _default;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
+;
+
+var _temp = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+
+   __REACT_HOT_LOADER__.register(TestCom, 'TestCom', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/TestCom/index.js');
+
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/TestCom/index.js');
+
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/TestCom/index.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/constants.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CHANGE_INPUT_INFO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GET_MEMBER_LIST; });
 /*
    action类型名常量
 */
@@ -1128,7 +667,7 @@ var CHANGE_INPUT_INFO = 'CHANGE_INPUT_INFO';
 var GET_MEMBER_LIST = 'GET_MEMBER_LIST';
 ;
 
-var constants__temp = function () {
+var _temp = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
@@ -1141,16 +680,736 @@ var constants__temp = function () {
 ;
 ;
 
-var constants__temp2 = function () {
+var _temp2 = function () {
    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
       return;
    }
 }();
 
 ;
-// CONCATENATED MODULE: ./app/js/utils/request.js
+
+/***/ }),
+
+/***/ "./app/js/containers/App.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_AppCom_index__ = __webpack_require__("./app/js/components/AppCom/index.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/*
+   App 应用总容器
+*/
+
+
+
+
+
+var App = function (_Component) {
+   _inherits(App, _Component);
+
+   function App(props) {
+      _classCallCheck(this, App);
+
+      return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+   }
+
+   _createClass(App, [{
+      key: 'render',
+      value: function render() {
+
+         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_2__components_AppCom_index__["a" /* default */],
+            null,
+            this.props.children
+         );
+      }
+   }]);
+
+   return App;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+var _default = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])()(App);
+
+var _default2 = _default;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
+;
+
+var _temp = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+
+   __REACT_HOT_LOADER__.register(App, 'App', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/App.js');
+
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/App.js');
+
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/App.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/containers/Home.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__("./node_modules/redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_HomeCom_index__ = __webpack_require__("./app/js/components/HomeCom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_rootAct__ = __webpack_require__("./app/js/actions/rootAct.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/*
+   Home 主页
+*/
+
+
+
+
+
+
+
+var Home = function (_Component) {
+   _inherits(Home, _Component);
+
+   function Home(props) {
+      _classCallCheck(this, Home);
+
+      return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+   }
+
+   _createClass(Home, [{
+      key: 'render',
+      value: function render() {
+         var _props = this.props,
+             rootState = _props.rootState,
+             getMemberList = _props.getMemberList,
+             changeInputInfo = _props.changeInputInfo,
+             postNewInfo = _props.postNewInfo;
+
+
+         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_HomeCom_index__["a" /* default */], {
+            rootState: rootState,
+            getMemberList: getMemberList,
+            changeInputInfo: changeInputInfo,
+            postNewInfo: postNewInfo
+         });
+      }
+   }]);
+
+   return Home;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+var _default = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])(function (state) {
+   return { rootState: state.rootReducer };
+}, function (dispatch) {
+   return {
+      getMemberList: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["bindActionCreators"])(__WEBPACK_IMPORTED_MODULE_4__actions_rootAct__["b" /* getMemberList */], dispatch),
+      changeInputInfo: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["bindActionCreators"])(__WEBPACK_IMPORTED_MODULE_4__actions_rootAct__["a" /* changeInputInfo */], dispatch),
+      postNewInfo: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["bindActionCreators"])(__WEBPACK_IMPORTED_MODULE_4__actions_rootAct__["c" /* postNewInfo */], dispatch)
+   };
+})(Home);
+
+var _default2 = _default;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
+;
+
+var _temp = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+
+   __REACT_HOT_LOADER__.register(Home, 'Home', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Home.js');
+
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Home.js');
+
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Home.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/containers/Test.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_TestCom_index__ = __webpack_require__("./app/js/components/TestCom/index.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/*
+   Test 主页
+*/
+
+
+// import {bindActionCreators} from 'redux';
+
+
+
+var Test = function (_Component) {
+   _inherits(Test, _Component);
+
+   function Test(props) {
+      _classCallCheck(this, Test);
+
+      return _possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, props));
+   }
+
+   _createClass(Test, [{
+      key: 'render',
+      value: function render() {
+
+         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_TestCom_index__["a" /* default */], this.props);
+      }
+   }]);
+
+   return Test;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+var _default = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])(function (state) {
+   return {};
+}, function (dispatch) {
+   return {};
+})(Test);
+
+var _default2 = _default;
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
+;
+
+var _temp = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+
+   __REACT_HOT_LOADER__.register(Test, 'Test', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Test.js');
+
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Test.js');
+
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Test.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/containers/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__App__ = __webpack_require__("./app/js/containers/App.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Home__ = __webpack_require__("./app/js/containers/Home.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Test__ = __webpack_require__("./app/js/containers/Test.js");
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__App__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__Home__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__Test__["a"]; });
+/*
+   导入所有容器组件
+*/
+
+
+
+
+
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+;
+
+var _temp2 = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_index_scss__ = __webpack_require__("./app/scss/index.scss");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scss_index_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scss_index_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__("./node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_hot_loader__ = __webpack_require__("./node_modules/react-hot-loader/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_hot_loader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_hot_loader__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_redux__ = __webpack_require__("./node_modules/react-router-redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_tap_event_plugin__ = __webpack_require__("./node_modules/react-tap-event-plugin/src/injectTapEventPlugin.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_tap_event_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_tap_event_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_history_createBrowserHistory__ = __webpack_require__("./node_modules/history/createBrowserHistory.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_history_createBrowserHistory__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__store_index__ = __webpack_require__("./app/js/store/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__routes__ = __webpack_require__("./app/js/routes.js");
+/*
+   app/js/index.js
+   入口文件, 配置 webpack 热加载模块
+*/
+
+
+
+
+
+
+
+
+
+
+// 引入原始的配置模块
+
+
+
+var history = __WEBPACK_IMPORTED_MODULE_7_history_createBrowserHistory___default()();
+var mountNode = document.getElementById('app');
+
+// react 的插件，提供onTouchTap()
+__WEBPACK_IMPORTED_MODULE_6_react_tap_event_plugin___default()();
+
+// 封装 render
+var render = function render(Component) {
+	__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+		__WEBPACK_IMPORTED_MODULE_3_react_hot_loader__["AppContainer"],
+		null,
+		__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+			__WEBPACK_IMPORTED_MODULE_4_react_redux__["Provider"],
+			{ store: __WEBPACK_IMPORTED_MODULE_8__store_index__["a" /* default */] },
+			__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+				__WEBPACK_IMPORTED_MODULE_5_react_router_redux__["ConnectedRouter"],
+				{ history: history, basename: '' },
+				__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Component, null)
+			)
+		)
+	), mountNode);
+};
+
+render(__WEBPACK_IMPORTED_MODULE_9__routes__["default"]);
+console.log("development");
+
+if (true) {
+	module.hot.accept("./app/js/routes.js", function (err) {
+		console.log('module hot');
+		if (err) {
+			console.log(err);
+		}
+		var NextComponent = __webpack_require__("./app/js/routes.js").default; // eslint-disable-line
+
+		render(NextComponent);
+	});
+}
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(history, 'history', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/index.js');
+
+	__REACT_HOT_LOADER__.register(mountNode, 'mountNode', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/index.js');
+
+	__REACT_HOT_LOADER__.register(render, 'render', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/index.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/reducers/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("./node_modules/redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_redux__ = __webpack_require__("./node_modules/react-router-redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__rootReduer__ = __webpack_require__("./app/js/reducers/rootReduer.js");
+// 引入reducer
+
+
+
+
+// 合并到主reducer
+var reducer = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"])({
+	rootReducer: __WEBPACK_IMPORTED_MODULE_2__rootReduer__["a" /* default */],
+	routing: __WEBPACK_IMPORTED_MODULE_1_react_router_redux__["routerReducer"]
+});
+
+var _default = reducer;
+var _default2 = _default;
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(reducer, 'reducer', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/index.js');
+
+	__REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/index.js');
+
+	__REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/index.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/reducers/rootReduer.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = rootReducer;
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+/*
+   整体的通用的状态
+*/
+
+var initialState = {
+	memberList: [],
+	inputInfo: {
+		name: '',
+		tel: ''
+	}
+};
+
+function rootReducer() {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	var action = arguments[1];
+
+	switch (action.type) {
+		case 'CHANGE_INPUT_INFO':
+			return _extends({}, state, { inputInfo: action.msg });
+		case 'GET_MEMBER_LIST':
+			return _extends({}, state, { memberList: action.msg });
+		default:
+			return state;
+	}
+}
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(initialState, 'initialState', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/rootReduer.js');
+
+	__REACT_HOT_LOADER__.register(rootReducer, 'rootReducer', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/reducers/rootReduer.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/routes.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__("./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_index__ = __webpack_require__("./app/js/containers/index.js");
+/*
+   Root, Router 配置
+*/
+
+
+
+
+
+var Root = function Root() {
+   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+         __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Switch"],
+         null,
+         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Route"], { path: '/', render: function render(props) {
+               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  __WEBPACK_IMPORTED_MODULE_2__containers_index__["a" /* App */],
+                  null,
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                     __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Switch"],
+                     null,
+                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Route"], { path: '/', exact: true, component: __WEBPACK_IMPORTED_MODULE_2__containers_index__["b" /* Home */] }),
+                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Route"], { path: '/home', component: __WEBPACK_IMPORTED_MODULE_2__containers_index__["b" /* Home */] }),
+                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Route"], { path: '/test', component: __WEBPACK_IMPORTED_MODULE_2__containers_index__["c" /* Test */] }),
+                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Redirect"], { from: '/undefined', to: { pathname: '/', search: '?mold=redirect' } })
+                  )
+               );
+            } }),
+         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Route"], { render: function render() {
+               return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["Redirect"], { to: '/' });
+            } })
+      )
+   );
+};
+
+var _default = Root;
+var _default2 = _default;
+/* harmony default export */ __webpack_exports__["default"] = (_default2);
+;
+
+var _temp = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+
+   __REACT_HOT_LOADER__.register(Root, 'Root', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/routes.js');
+
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/routes.js');
+
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/routes.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/store/configureStore.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export history */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("./node_modules/redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_redux__ = __webpack_require__("./node_modules/react-router-redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__("./node_modules/redux-thunk/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__ = __webpack_require__("./node_modules/history/createBrowserHistory.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/*
+   创建一个构造store的函数，真正的store在入口文件中创造
+*/
+
+
+
+// 引入thunk 中间件，处理异步操作
+
+
+
+// 创建 route 的中间件
+var history = __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory___default()();
+var routeMiddleware = Object(__WEBPACK_IMPORTED_MODULE_1_react_router_redux__["routerMiddleware"])(history);
+
+var middleware = [routeMiddleware, __WEBPACK_IMPORTED_MODULE_2_redux_thunk___default.a];
+/*
+	辅助使用chrome浏览器进行redux调试
+*/
+var composeEnhancers = "development" !== 'production' && (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+   // Specify here name, actionsBlacklist, actionsCreators and other options
+}) : __WEBPACK_IMPORTED_MODULE_0_redux__["compose"];
+
+/*
+   调用 applyMiddleware ，使用 middleware 来增强 createStore
+*/
+var configureStore = composeEnhancers(__WEBPACK_IMPORTED_MODULE_0_redux__["applyMiddleware"].apply(undefined, middleware))(__WEBPACK_IMPORTED_MODULE_0_redux__["createStore"]);
+
+var _default = configureStore;
+var _default2 = _default;
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
+;
+
+var _temp = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+
+   __REACT_HOT_LOADER__.register(history, 'history', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
+
+   __REACT_HOT_LOADER__.register(routeMiddleware, 'routeMiddleware', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
+
+   __REACT_HOT_LOADER__.register(middleware, 'middleware', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
+
+   __REACT_HOT_LOADER__.register(composeEnhancers, 'composeEnhancers', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
+
+   __REACT_HOT_LOADER__.register(configureStore, 'configureStore', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
+
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
+
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/configureStore.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/store/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configureStore__ = __webpack_require__("./app/js/store/configureStore.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers__ = __webpack_require__("./app/js/reducers/index.js");
+/*
+   创建唯一 store 并输出
+*/
+
+
+
+// 给增强后的store传入reducer
+var store = Object(__WEBPACK_IMPORTED_MODULE_0__configureStore__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1__reducers__["a" /* default */]);
+
+var _default = store;
+var _default2 = _default;
+/* harmony default export */ __webpack_exports__["a"] = (_default2);
+;
+
+var _temp = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+
+   __REACT_HOT_LOADER__.register(store, 'store', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/index.js');
+
+   __REACT_HOT_LOADER__.register(_default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/index.js');
+
+   __REACT_HOT_LOADER__.register(_default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/store/index.js');
+}();
+
+;
+;
+
+var _temp2 = function () {
+   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+      return;
+   }
+}();
+
+;
+
+/***/ }),
+
+/***/ "./app/js/utils/request.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export host */
+/* unused harmony export default */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return get; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return post; });
+/* unused harmony export put */
+/* unused harmony export del */
 /*** IMPORTS FROM imports-loader ***/
-var baseUrl = "http://10.15.32.84:3003";
+var baseUrl = "http://10.15.22.47:3003";
 
 /*
 	封装请求
@@ -1197,7 +1456,7 @@ var del = function del(url, body) {
 };
 ;
 
-var request__temp = function () {
+var _temp = function () {
 	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
 		return;
 	}
@@ -1220,472 +1479,10 @@ var request__temp = function () {
 ;
 ;
 
-var request__temp2 = function () {
+var _temp2 = function () {
 	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
 		return;
 	}
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/actions/rootAct.js
-/*
-   总的action，包括登录和退出登录
-*/
-
-
-
-
-// 获取 成员信息列表
-function rootAct_getMemberList() {
-   return function (dispatch) {
-      get('/list').then(function (resp) {
-         dispatch({
-            type: GET_MEMBER_LIST,
-            msg: resp
-         });
-      }).catch(function (err) {
-         console.log(err);
-      });
-   };
-}
-
-// 改变新增的本地的成员信息
-function rootAct_changeInputInfo(newInfo) {
-   return { type: CHANGE_INPUT_INFO, msg: newInfo };
-}
-
-// 提交新成员信息
-function rootAct_postNewInfo(newInfo) {
-   console.log('newInfo', newInfo);
-   return function (dispatch) {
-      post('/list', newInfo).then(function () {
-         // 此处受json-server 限制 post会返回发送出去的数据 使用 get再获取一遍
-         return get('/list');
-      }).then(function (res) {
-         console.log('res', res);
-         dispatch({
-            type: GET_MEMBER_LIST,
-            msg: res
-         });
-      }).catch(function (err) {
-         console.log(err);
-      });
-   };
-}
-;
-
-var rootAct__temp = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-
-   __REACT_HOT_LOADER__.register(rootAct_getMemberList, 'getMemberList', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/actions/rootAct.js');
-
-   __REACT_HOT_LOADER__.register(rootAct_changeInputInfo, 'changeInputInfo', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/actions/rootAct.js');
-
-   __REACT_HOT_LOADER__.register(rootAct_postNewInfo, 'postNewInfo', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/actions/rootAct.js');
-}();
-
-;
-;
-
-var rootAct__temp2 = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/containers/Home.js
-/* harmony import */ var Home___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var Home___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(Home___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var Home___WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__("./node_modules/redux/es/index.js");
-var Home__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function Home__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function Home__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function Home__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/*
-   Home 主页
-*/
-
-
-
-
-
-
-
-var Home_Home = function (_Component) {
-   Home__inherits(Home, _Component);
-
-   function Home(props) {
-      Home__classCallCheck(this, Home);
-
-      return Home__possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-   }
-
-   Home__createClass(Home, [{
-      key: 'render',
-      value: function render() {
-         var _props = this.props,
-             rootState = _props.rootState,
-             getMemberList = _props.getMemberList,
-             changeInputInfo = _props.changeInputInfo,
-             postNewInfo = _props.postNewInfo;
-
-
-         return Home___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(HomeCom_HomeCom, {
-            rootState: rootState,
-            getMemberList: getMemberList,
-            changeInputInfo: changeInputInfo,
-            postNewInfo: postNewInfo
-         });
-      }
-   }]);
-
-   return Home;
-}(Home___WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-var Home__default = Object(Home___WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])(function (state) {
-   return { rootState: state.rootReducer };
-}, function (dispatch) {
-   return {
-      getMemberList: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["bindActionCreators"])(rootAct_getMemberList, dispatch),
-      changeInputInfo: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["bindActionCreators"])(rootAct_changeInputInfo, dispatch),
-      postNewInfo: Object(__WEBPACK_IMPORTED_MODULE_2_redux__["bindActionCreators"])(rootAct_postNewInfo, dispatch)
-   };
-})(Home_Home);
-
-var Home__default2 = Home__default;
-
-
-/* harmony default export */ var Home_defaultExport = (Home__default2);
-;
-
-var Home__temp = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-
-   __REACT_HOT_LOADER__.register(Home_Home, 'Home', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Home.js');
-
-   __REACT_HOT_LOADER__.register(Home__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Home.js');
-
-   __REACT_HOT_LOADER__.register(Home__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Home.js');
-}();
-
-;
-;
-
-var Home__temp2 = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/components/TestCom/index.js
-/* harmony import */ var TestCom___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var TestCom___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(TestCom___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_home_scss__ = __webpack_require__("./app/scss/home.scss");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scss_home_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__scss_home_scss__);
-var TestCom__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function TestCom__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function TestCom__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function TestCom__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/*
-   Test 容器组件的子组件，信息展示
-*/
-
-
-
-
-
-var TestCom = function (_Component) {
-   TestCom__inherits(TestCom, _Component);
-
-   function TestCom(props) {
-      TestCom__classCallCheck(this, TestCom);
-
-      var _this = TestCom__possibleConstructorReturn(this, (TestCom.__proto__ || Object.getPrototypeOf(TestCom)).call(this, props));
-
-      _this.handleClick = function () {
-         return _this.__handleClick__REACT_HOT_LOADER__.apply(_this, arguments);
-      };
-
-      return _this;
-   }
-
-   TestCom__createClass(TestCom, [{
-      key: '__handleClick__REACT_HOT_LOADER__',
-      value: function __handleClick__REACT_HOT_LOADER__() {
-         return this.__handleClick__REACT_HOT_LOADER__.apply(this, arguments);
-      }
-   }, {
-      key: '__handleClick__REACT_HOT_LOADER__',
-      value: function __handleClick__REACT_HOT_LOADER__() {
-         return this.__handleClick__REACT_HOT_LOADER__.apply(this, arguments);
-      }
-   }, {
-      key: '__handleClick__REACT_HOT_LOADER__',
-      value: function __handleClick__REACT_HOT_LOADER__() {
-         return this.__handleClick__REACT_HOT_LOADER__.apply(this, arguments);
-      }
-   }, {
-      key: '__handleClick__REACT_HOT_LOADER__',
-      value: function __handleClick__REACT_HOT_LOADER__() {
-         // withRouter 使组件获得了 location history match 三个属性
-         this.props.history.push({
-            pathname: '/home',
-            search: '?name=testname'
-         });
-      }
-   }, {
-      key: 'render',
-      value: function render() {
-         console.log(this.props);
-
-         return TestCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { className: 'test-container' },
-            'this is Test Page',
-            TestCom___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-               'button',
-               { onClick: this.handleClick },
-               '\u70B9\u51FB\u56DE\u5230 home page'
-            )
-         );
-      }
-   }]);
-
-   return TestCom;
-}(TestCom___WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-var TestCom__default = __WEBPACK_IMPORTED_MODULE_0_react_router__["withRouter"](TestCom);
-
-var TestCom__default2 = TestCom__default;
-
-
-/* harmony default export */ var TestCom_defaultExport = (TestCom__default2);
-;
-
-var TestCom__temp = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-
-   __REACT_HOT_LOADER__.register(TestCom, 'TestCom', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/TestCom/index.js');
-
-   __REACT_HOT_LOADER__.register(TestCom__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/TestCom/index.js');
-
-   __REACT_HOT_LOADER__.register(TestCom__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/components/TestCom/index.js');
-}();
-
-;
-;
-
-var TestCom__temp2 = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/containers/Test.js
-/* harmony import */ var Test___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var Test___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(Test___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var Test___WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
-var Test__createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function Test__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function Test__possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function Test__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/*
-   Test 主页
-*/
-
-
-// import {bindActionCreators} from 'redux';
-
-
-
-var Test_Test = function (_Component) {
-   Test__inherits(Test, _Component);
-
-   function Test(props) {
-      Test__classCallCheck(this, Test);
-
-      return Test__possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).call(this, props));
-   }
-
-   Test__createClass(Test, [{
-      key: 'render',
-      value: function render() {
-
-         return Test___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(TestCom_defaultExport, this.props);
-      }
-   }]);
-
-   return Test;
-}(Test___WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-
-var Test__default = Object(Test___WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])(function (state) {
-   return {};
-}, function (dispatch) {
-   return {};
-})(Test_Test);
-
-var Test__default2 = Test__default;
-
-
-/* harmony default export */ var Test_defaultExport = (Test__default2);
-;
-
-var Test__temp = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-
-   __REACT_HOT_LOADER__.register(Test_Test, 'Test', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Test.js');
-
-   __REACT_HOT_LOADER__.register(Test__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Test.js');
-
-   __REACT_HOT_LOADER__.register(Test__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/containers/Test.js');
-}();
-
-;
-;
-
-var Test__temp2 = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/containers/index.js
-/*
-   导入所有容器组件
-*/
-
-
-
-
-
-;
-
-var containers__temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-}();
-
-;
-;
-
-var containers__temp2 = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
-}();
-
-;
-// CONCATENATED MODULE: ./app/js/routes.js
-/* harmony import */ var routes___WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("./node_modules/react/react.js");
-/* harmony import */ var routes___WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(routes___WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var routes___WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_router_redux__ = __webpack_require__("./node_modules/react-router-redux/es/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_history_createBrowserHistory__ = __webpack_require__("./node_modules/history/createBrowserHistory.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_history_createBrowserHistory__);
-/*
-   Root, Router 配置
-*/
-
-
-// import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
-
-
-
-// import history from './store/configureStore';
-
-
-
-
-var routes_history = __WEBPACK_IMPORTED_MODULE_6_history_createBrowserHistory___default()();
-
-var routes_Root = function Root() {
-   return routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      routes___WEBPACK_IMPORTED_MODULE_1_react_redux__["Provider"],
-      { store: store_defaultExport },
-      routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-         __WEBPACK_IMPORTED_MODULE_3_react_router_redux__["ConnectedRouter"],
-         { history: routes_history },
-         routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            null,
-            routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-               __WEBPACK_IMPORTED_MODULE_0_react_router__["Switch"],
-               null,
-               routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react_router__["Route"], { path: '/', render: function render(props) {
-                     return routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        App_defaultExport,
-                        null,
-                        routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                           __WEBPACK_IMPORTED_MODULE_0_react_router__["Switch"],
-                           null,
-                           routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react_router__["Route"], { path: '/', exact: true, component: Home_defaultExport }),
-                           routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react_router__["Route"], { path: '/home', component: Home_defaultExport }),
-                           routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react_router__["Route"], { path: '/test', component: Test_defaultExport }),
-                           routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react_router__["Redirect"], { from: '/undefined', to: { pathname: '/', search: '?mold=redirect' } })
-                        )
-                     );
-                  } }),
-               routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react_router__["Route"], { render: function render() {
-                     return routes___WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_react_router__["Redirect"], { to: '/' });
-                  } })
-            )
-         )
-      )
-   );
-};
-
-var routes__default = routes_Root;
-var routes__default2 = routes__default;
-/* harmony default export */ __webpack_exports__["default"] = (routes__default2);
-;
-
-var routes__temp = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
-
-   __REACT_HOT_LOADER__.register(routes_history, 'history', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/routes.js');
-
-   __REACT_HOT_LOADER__.register(routes_Root, 'Root', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/routes.js');
-
-   __REACT_HOT_LOADER__.register(routes__default, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/routes.js');
-
-   __REACT_HOT_LOADER__.register(routes__default2, 'default', '/Users/zhangmingjia/Desktop/document/ceshi/github/react-router4-template/app/js/routes.js');
-}();
-
-;
-;
-
-var routes__temp2 = function () {
-   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-      return;
-   }
 }();
 
 ;
@@ -3068,713 +2865,6 @@ if (typeof window !== "undefined") {
 module.exports = win;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./node_modules/history/DOMUtils.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-var canUseDOM = exports.canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-var addEventListener = exports.addEventListener = function addEventListener(node, event, listener) {
-  return node.addEventListener ? node.addEventListener(event, listener, false) : node.attachEvent('on' + event, listener);
-};
-
-var removeEventListener = exports.removeEventListener = function removeEventListener(node, event, listener) {
-  return node.removeEventListener ? node.removeEventListener(event, listener, false) : node.detachEvent('on' + event, listener);
-};
-
-var getConfirmation = exports.getConfirmation = function getConfirmation(message, callback) {
-  return callback(window.confirm(message));
-}; // eslint-disable-line no-alert
-
-/**
- * Returns true if the HTML5 history API is supported. Taken from Modernizr.
- *
- * https://github.com/Modernizr/Modernizr/blob/master/LICENSE
- * https://github.com/Modernizr/Modernizr/blob/master/feature-detects/history.js
- * changed to avoid false negatives for Windows Phones: https://github.com/reactjs/react-router/issues/586
- */
-var supportsHistory = exports.supportsHistory = function supportsHistory() {
-  var ua = window.navigator.userAgent;
-
-  if ((ua.indexOf('Android 2.') !== -1 || ua.indexOf('Android 4.0') !== -1) && ua.indexOf('Mobile Safari') !== -1 && ua.indexOf('Chrome') === -1 && ua.indexOf('Windows Phone') === -1) return false;
-
-  return window.history && 'pushState' in window.history;
-};
-
-/**
- * Returns true if browser fires popstate on hash change.
- * IE10 and IE11 do not.
- */
-var supportsPopStateOnHashChange = exports.supportsPopStateOnHashChange = function supportsPopStateOnHashChange() {
-  return window.navigator.userAgent.indexOf('Trident') === -1;
-};
-
-/**
- * Returns false if using go(n) with hash history causes a full page reload.
- */
-var supportsGoWithoutReloadUsingHash = exports.supportsGoWithoutReloadUsingHash = function supportsGoWithoutReloadUsingHash() {
-  return window.navigator.userAgent.indexOf('Firefox') === -1;
-};
-
-/**
- * Returns true if a given popstate event is an extraneous WebKit event.
- * Accounts for the fact that Chrome on iOS fires real popstate events
- * containing undefined state when pressing the back button.
- */
-var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
-  return event.state === undefined && navigator.userAgent.indexOf('CriOS') === -1;
-};
-
-/***/ }),
-
-/***/ "./node_modules/history/createBrowserHistory.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _warning = __webpack_require__("./node_modules/warning/browser.js");
-
-var _warning2 = _interopRequireDefault(_warning);
-
-var _invariant = __webpack_require__("./node_modules/invariant/browser.js");
-
-var _invariant2 = _interopRequireDefault(_invariant);
-
-var _LocationUtils = __webpack_require__("./node_modules/history/LocationUtils.js");
-
-var _PathUtils = __webpack_require__("./node_modules/history/PathUtils.js");
-
-var _createTransitionManager = __webpack_require__("./node_modules/history/createTransitionManager.js");
-
-var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
-
-var _DOMUtils = __webpack_require__("./node_modules/history/DOMUtils.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var PopStateEvent = 'popstate';
-var HashChangeEvent = 'hashchange';
-
-var getHistoryState = function getHistoryState() {
-  try {
-    return window.history.state || {};
-  } catch (e) {
-    // IE 11 sometimes throws when accessing window.history.state
-    // See https://github.com/ReactTraining/history/pull/289
-    return {};
-  }
-};
-
-/**
- * Creates a history object that uses the HTML5 history API including
- * pushState, replaceState, and the popstate event.
- */
-var createBrowserHistory = function createBrowserHistory() {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-  (0, _invariant2.default)(_DOMUtils.canUseDOM, 'Browser history needs a DOM');
-
-  var globalHistory = window.history;
-  var canUseHistory = (0, _DOMUtils.supportsHistory)();
-  var needsHashChangeListener = !(0, _DOMUtils.supportsPopStateOnHashChange)();
-
-  var _props$forceRefresh = props.forceRefresh,
-      forceRefresh = _props$forceRefresh === undefined ? false : _props$forceRefresh,
-      _props$getUserConfirm = props.getUserConfirmation,
-      getUserConfirmation = _props$getUserConfirm === undefined ? _DOMUtils.getConfirmation : _props$getUserConfirm,
-      _props$keyLength = props.keyLength,
-      keyLength = _props$keyLength === undefined ? 6 : _props$keyLength;
-
-  var basename = props.basename ? (0, _PathUtils.stripTrailingSlash)((0, _PathUtils.addLeadingSlash)(props.basename)) : '';
-
-  var getDOMLocation = function getDOMLocation(historyState) {
-    var _ref = historyState || {},
-        key = _ref.key,
-        state = _ref.state;
-
-    var _window$location = window.location,
-        pathname = _window$location.pathname,
-        search = _window$location.search,
-        hash = _window$location.hash;
-
-
-    var path = pathname + search + hash;
-
-    (0, _warning2.default)(!basename || (0, _PathUtils.hasBasename)(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".');
-
-    if (basename) path = (0, _PathUtils.stripBasename)(path, basename);
-
-    return (0, _LocationUtils.createLocation)(path, state, key);
-  };
-
-  var createKey = function createKey() {
-    return Math.random().toString(36).substr(2, keyLength);
-  };
-
-  var transitionManager = (0, _createTransitionManager2.default)();
-
-  var setState = function setState(nextState) {
-    _extends(history, nextState);
-
-    history.length = globalHistory.length;
-
-    transitionManager.notifyListeners(history.location, history.action);
-  };
-
-  var handlePopState = function handlePopState(event) {
-    // Ignore extraneous popstate events in WebKit.
-    if ((0, _DOMUtils.isExtraneousPopstateEvent)(event)) return;
-
-    handlePop(getDOMLocation(event.state));
-  };
-
-  var handleHashChange = function handleHashChange() {
-    handlePop(getDOMLocation(getHistoryState()));
-  };
-
-  var forceNextPop = false;
-
-  var handlePop = function handlePop(location) {
-    if (forceNextPop) {
-      forceNextPop = false;
-      setState();
-    } else {
-      var action = 'POP';
-
-      transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
-        if (ok) {
-          setState({ action: action, location: location });
-        } else {
-          revertPop(location);
-        }
-      });
-    }
-  };
-
-  var revertPop = function revertPop(fromLocation) {
-    var toLocation = history.location;
-
-    // TODO: We could probably make this more reliable by
-    // keeping a list of keys we've seen in sessionStorage.
-    // Instead, we just default to 0 for keys we don't know.
-
-    var toIndex = allKeys.indexOf(toLocation.key);
-
-    if (toIndex === -1) toIndex = 0;
-
-    var fromIndex = allKeys.indexOf(fromLocation.key);
-
-    if (fromIndex === -1) fromIndex = 0;
-
-    var delta = toIndex - fromIndex;
-
-    if (delta) {
-      forceNextPop = true;
-      go(delta);
-    }
-  };
-
-  var initialLocation = getDOMLocation(getHistoryState());
-  var allKeys = [initialLocation.key];
-
-  // Public interface
-
-  var createHref = function createHref(location) {
-    return basename + (0, _PathUtils.createPath)(location);
-  };
-
-  var push = function push(path, state) {
-    (0, _warning2.default)(!((typeof path === 'undefined' ? 'undefined' : _typeof(path)) === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to push when the 1st ' + 'argument is a location-like object that already has state; it is ignored');
-
-    var action = 'PUSH';
-    var location = (0, _LocationUtils.createLocation)(path, state, createKey(), history.location);
-
-    transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
-      if (!ok) return;
-
-      var href = createHref(location);
-      var key = location.key,
-          state = location.state;
-
-
-      if (canUseHistory) {
-        globalHistory.pushState({ key: key, state: state }, null, href);
-
-        if (forceRefresh) {
-          window.location.href = href;
-        } else {
-          var prevIndex = allKeys.indexOf(history.location.key);
-          var nextKeys = allKeys.slice(0, prevIndex === -1 ? 0 : prevIndex + 1);
-
-          nextKeys.push(location.key);
-          allKeys = nextKeys;
-
-          setState({ action: action, location: location });
-        }
-      } else {
-        (0, _warning2.default)(state === undefined, 'Browser history cannot push state in browsers that do not support HTML5 history');
-
-        window.location.href = href;
-      }
-    });
-  };
-
-  var replace = function replace(path, state) {
-    (0, _warning2.default)(!((typeof path === 'undefined' ? 'undefined' : _typeof(path)) === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to replace when the 1st ' + 'argument is a location-like object that already has state; it is ignored');
-
-    var action = 'REPLACE';
-    var location = (0, _LocationUtils.createLocation)(path, state, createKey(), history.location);
-
-    transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
-      if (!ok) return;
-
-      var href = createHref(location);
-      var key = location.key,
-          state = location.state;
-
-
-      if (canUseHistory) {
-        globalHistory.replaceState({ key: key, state: state }, null, href);
-
-        if (forceRefresh) {
-          window.location.replace(href);
-        } else {
-          var prevIndex = allKeys.indexOf(history.location.key);
-
-          if (prevIndex !== -1) allKeys[prevIndex] = location.key;
-
-          setState({ action: action, location: location });
-        }
-      } else {
-        (0, _warning2.default)(state === undefined, 'Browser history cannot replace state in browsers that do not support HTML5 history');
-
-        window.location.replace(href);
-      }
-    });
-  };
-
-  var go = function go(n) {
-    globalHistory.go(n);
-  };
-
-  var goBack = function goBack() {
-    return go(-1);
-  };
-
-  var goForward = function goForward() {
-    return go(1);
-  };
-
-  var listenerCount = 0;
-
-  var checkDOMListeners = function checkDOMListeners(delta) {
-    listenerCount += delta;
-
-    if (listenerCount === 1) {
-      (0, _DOMUtils.addEventListener)(window, PopStateEvent, handlePopState);
-
-      if (needsHashChangeListener) (0, _DOMUtils.addEventListener)(window, HashChangeEvent, handleHashChange);
-    } else if (listenerCount === 0) {
-      (0, _DOMUtils.removeEventListener)(window, PopStateEvent, handlePopState);
-
-      if (needsHashChangeListener) (0, _DOMUtils.removeEventListener)(window, HashChangeEvent, handleHashChange);
-    }
-  };
-
-  var isBlocked = false;
-
-  var block = function block() {
-    var prompt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-    var unblock = transitionManager.setPrompt(prompt);
-
-    if (!isBlocked) {
-      checkDOMListeners(1);
-      isBlocked = true;
-    }
-
-    return function () {
-      if (isBlocked) {
-        isBlocked = false;
-        checkDOMListeners(-1);
-      }
-
-      return unblock();
-    };
-  };
-
-  var listen = function listen(listener) {
-    var unlisten = transitionManager.appendListener(listener);
-    checkDOMListeners(1);
-
-    return function () {
-      checkDOMListeners(-1);
-      unlisten();
-    };
-  };
-
-  var history = {
-    length: globalHistory.length,
-    action: 'POP',
-    location: initialLocation,
-    createHref: createHref,
-    push: push,
-    replace: replace,
-    go: go,
-    goBack: goBack,
-    goForward: goForward,
-    block: block,
-    listen: listen
-  };
-
-  return history;
-};
-
-exports.default = createBrowserHistory;
-
-/***/ }),
-
-/***/ "./node_modules/history/createHashHistory.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _warning = __webpack_require__("./node_modules/warning/browser.js");
-
-var _warning2 = _interopRequireDefault(_warning);
-
-var _invariant = __webpack_require__("./node_modules/invariant/browser.js");
-
-var _invariant2 = _interopRequireDefault(_invariant);
-
-var _LocationUtils = __webpack_require__("./node_modules/history/LocationUtils.js");
-
-var _PathUtils = __webpack_require__("./node_modules/history/PathUtils.js");
-
-var _createTransitionManager = __webpack_require__("./node_modules/history/createTransitionManager.js");
-
-var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
-
-var _DOMUtils = __webpack_require__("./node_modules/history/DOMUtils.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var HashChangeEvent = 'hashchange';
-
-var HashPathCoders = {
-  hashbang: {
-    encodePath: function encodePath(path) {
-      return path.charAt(0) === '!' ? path : '!/' + (0, _PathUtils.stripLeadingSlash)(path);
-    },
-    decodePath: function decodePath(path) {
-      return path.charAt(0) === '!' ? path.substr(1) : path;
-    }
-  },
-  noslash: {
-    encodePath: _PathUtils.stripLeadingSlash,
-    decodePath: _PathUtils.addLeadingSlash
-  },
-  slash: {
-    encodePath: _PathUtils.addLeadingSlash,
-    decodePath: _PathUtils.addLeadingSlash
-  }
-};
-
-var getHashPath = function getHashPath() {
-  // We can't use window.location.hash here because it's not
-  // consistent across browsers - Firefox will pre-decode it!
-  var href = window.location.href;
-  var hashIndex = href.indexOf('#');
-  return hashIndex === -1 ? '' : href.substring(hashIndex + 1);
-};
-
-var pushHashPath = function pushHashPath(path) {
-  return window.location.hash = path;
-};
-
-var replaceHashPath = function replaceHashPath(path) {
-  var hashIndex = window.location.href.indexOf('#');
-
-  window.location.replace(window.location.href.slice(0, hashIndex >= 0 ? hashIndex : 0) + '#' + path);
-};
-
-var createHashHistory = function createHashHistory() {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-  (0, _invariant2.default)(_DOMUtils.canUseDOM, 'Hash history needs a DOM');
-
-  var globalHistory = window.history;
-  var canGoWithoutReload = (0, _DOMUtils.supportsGoWithoutReloadUsingHash)();
-
-  var _props$getUserConfirm = props.getUserConfirmation,
-      getUserConfirmation = _props$getUserConfirm === undefined ? _DOMUtils.getConfirmation : _props$getUserConfirm,
-      _props$hashType = props.hashType,
-      hashType = _props$hashType === undefined ? 'slash' : _props$hashType;
-
-  var basename = props.basename ? (0, _PathUtils.stripTrailingSlash)((0, _PathUtils.addLeadingSlash)(props.basename)) : '';
-
-  var _HashPathCoders$hashT = HashPathCoders[hashType],
-      encodePath = _HashPathCoders$hashT.encodePath,
-      decodePath = _HashPathCoders$hashT.decodePath;
-
-
-  var getDOMLocation = function getDOMLocation() {
-    var path = decodePath(getHashPath());
-
-    (0, _warning2.default)(!basename || (0, _PathUtils.hasBasename)(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".');
-
-    if (basename) path = (0, _PathUtils.stripBasename)(path, basename);
-
-    return (0, _LocationUtils.createLocation)(path);
-  };
-
-  var transitionManager = (0, _createTransitionManager2.default)();
-
-  var setState = function setState(nextState) {
-    _extends(history, nextState);
-
-    history.length = globalHistory.length;
-
-    transitionManager.notifyListeners(history.location, history.action);
-  };
-
-  var forceNextPop = false;
-  var ignorePath = null;
-
-  var handleHashChange = function handleHashChange() {
-    var path = getHashPath();
-    var encodedPath = encodePath(path);
-
-    if (path !== encodedPath) {
-      // Ensure we always have a properly-encoded hash.
-      replaceHashPath(encodedPath);
-    } else {
-      var location = getDOMLocation();
-      var prevLocation = history.location;
-
-      if (!forceNextPop && (0, _LocationUtils.locationsAreEqual)(prevLocation, location)) return; // A hashchange doesn't always == location change.
-
-      if (ignorePath === (0, _PathUtils.createPath)(location)) return; // Ignore this change; we already setState in push/replace.
-
-      ignorePath = null;
-
-      handlePop(location);
-    }
-  };
-
-  var handlePop = function handlePop(location) {
-    if (forceNextPop) {
-      forceNextPop = false;
-      setState();
-    } else {
-      var action = 'POP';
-
-      transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
-        if (ok) {
-          setState({ action: action, location: location });
-        } else {
-          revertPop(location);
-        }
-      });
-    }
-  };
-
-  var revertPop = function revertPop(fromLocation) {
-    var toLocation = history.location;
-
-    // TODO: We could probably make this more reliable by
-    // keeping a list of paths we've seen in sessionStorage.
-    // Instead, we just default to 0 for paths we don't know.
-
-    var toIndex = allPaths.lastIndexOf((0, _PathUtils.createPath)(toLocation));
-
-    if (toIndex === -1) toIndex = 0;
-
-    var fromIndex = allPaths.lastIndexOf((0, _PathUtils.createPath)(fromLocation));
-
-    if (fromIndex === -1) fromIndex = 0;
-
-    var delta = toIndex - fromIndex;
-
-    if (delta) {
-      forceNextPop = true;
-      go(delta);
-    }
-  };
-
-  // Ensure the hash is encoded properly before doing anything else.
-  var path = getHashPath();
-  var encodedPath = encodePath(path);
-
-  if (path !== encodedPath) replaceHashPath(encodedPath);
-
-  var initialLocation = getDOMLocation();
-  var allPaths = [(0, _PathUtils.createPath)(initialLocation)];
-
-  // Public interface
-
-  var createHref = function createHref(location) {
-    return '#' + encodePath(basename + (0, _PathUtils.createPath)(location));
-  };
-
-  var push = function push(path, state) {
-    (0, _warning2.default)(state === undefined, 'Hash history cannot push state; it is ignored');
-
-    var action = 'PUSH';
-    var location = (0, _LocationUtils.createLocation)(path, undefined, undefined, history.location);
-
-    transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
-      if (!ok) return;
-
-      var path = (0, _PathUtils.createPath)(location);
-      var encodedPath = encodePath(basename + path);
-      var hashChanged = getHashPath() !== encodedPath;
-
-      if (hashChanged) {
-        // We cannot tell if a hashchange was caused by a PUSH, so we'd
-        // rather setState here and ignore the hashchange. The caveat here
-        // is that other hash histories in the page will consider it a POP.
-        ignorePath = path;
-        pushHashPath(encodedPath);
-
-        var prevIndex = allPaths.lastIndexOf((0, _PathUtils.createPath)(history.location));
-        var nextPaths = allPaths.slice(0, prevIndex === -1 ? 0 : prevIndex + 1);
-
-        nextPaths.push(path);
-        allPaths = nextPaths;
-
-        setState({ action: action, location: location });
-      } else {
-        (0, _warning2.default)(false, 'Hash history cannot PUSH the same path; a new entry will not be added to the history stack');
-
-        setState();
-      }
-    });
-  };
-
-  var replace = function replace(path, state) {
-    (0, _warning2.default)(state === undefined, 'Hash history cannot replace state; it is ignored');
-
-    var action = 'REPLACE';
-    var location = (0, _LocationUtils.createLocation)(path, undefined, undefined, history.location);
-
-    transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
-      if (!ok) return;
-
-      var path = (0, _PathUtils.createPath)(location);
-      var encodedPath = encodePath(basename + path);
-      var hashChanged = getHashPath() !== encodedPath;
-
-      if (hashChanged) {
-        // We cannot tell if a hashchange was caused by a REPLACE, so we'd
-        // rather setState here and ignore the hashchange. The caveat here
-        // is that other hash histories in the page will consider it a POP.
-        ignorePath = path;
-        replaceHashPath(encodedPath);
-      }
-
-      var prevIndex = allPaths.indexOf((0, _PathUtils.createPath)(history.location));
-
-      if (prevIndex !== -1) allPaths[prevIndex] = path;
-
-      setState({ action: action, location: location });
-    });
-  };
-
-  var go = function go(n) {
-    (0, _warning2.default)(canGoWithoutReload, 'Hash history go(n) causes a full page reload in this browser');
-
-    globalHistory.go(n);
-  };
-
-  var goBack = function goBack() {
-    return go(-1);
-  };
-
-  var goForward = function goForward() {
-    return go(1);
-  };
-
-  var listenerCount = 0;
-
-  var checkDOMListeners = function checkDOMListeners(delta) {
-    listenerCount += delta;
-
-    if (listenerCount === 1) {
-      (0, _DOMUtils.addEventListener)(window, HashChangeEvent, handleHashChange);
-    } else if (listenerCount === 0) {
-      (0, _DOMUtils.removeEventListener)(window, HashChangeEvent, handleHashChange);
-    }
-  };
-
-  var isBlocked = false;
-
-  var block = function block() {
-    var prompt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-    var unblock = transitionManager.setPrompt(prompt);
-
-    if (!isBlocked) {
-      checkDOMListeners(1);
-      isBlocked = true;
-    }
-
-    return function () {
-      if (isBlocked) {
-        isBlocked = false;
-        checkDOMListeners(-1);
-      }
-
-      return unblock();
-    };
-  };
-
-  var listen = function listen(listener) {
-    var unlisten = transitionManager.appendListener(listener);
-    checkDOMListeners(1);
-
-    return function () {
-      checkDOMListeners(-1);
-      unlisten();
-    };
-  };
-
-  var history = {
-    length: globalHistory.length,
-    action: 'POP',
-    location: initialLocation,
-    createHref: createHref,
-    push: push,
-    replace: replace,
-    go: go,
-    goBack: goBack,
-    goForward: goForward,
-    block: block,
-    listen: listen
-  };
-
-  return history;
-};
-
-exports.default = createHashHistory;
 
 /***/ }),
 
@@ -21353,7 +20443,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/webpack-dev-server/client/index.js?http:/10.15.32.84:8090":
+/***/ "./node_modules/webpack-dev-server/client/index.js?http:/10.15.22.47:8090":
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__resourceQuery) {/* global __resourceQuery WorkerGlobalScope */
@@ -21545,7 +20635,7 @@ function reloadApp() {
 	}
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "?http://10.15.32.84:8090"))
+/* WEBPACK VAR INJECTION */}.call(exports, "?http://10.15.22.47:8090"))
 
 /***/ }),
 
@@ -21927,7 +21017,7 @@ if(true) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("./node_modules/react-hot-loader/patch.js");
-__webpack_require__("./node_modules/webpack-dev-server/client/index.js?http:/10.15.32.84:8090");
+__webpack_require__("./node_modules/webpack-dev-server/client/index.js?http:/10.15.22.47:8090");
 __webpack_require__("./node_modules/webpack/hot/only-dev-server.js");
 module.exports = __webpack_require__("./app/js/index.js");
 

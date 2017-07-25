@@ -53,6 +53,7 @@ module.exports = webpackMerge(baseConfig(), {
 	plugins: [
 		new webpack.HashedModuleIdsPlugin(),
 		new WebpackChunkHash(),
+		new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify('production')
 		}),

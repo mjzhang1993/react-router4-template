@@ -80,6 +80,7 @@ module.exports = webpackMerge(baseConfig(), {
 		host: ip,
 		port: 8090,
 		open: true,
+		openPage: '',
 		hot: true,
 		inline: true,
 		compress: true,
