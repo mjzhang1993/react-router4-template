@@ -19,7 +19,7 @@ module.exports = webpackMerge(baseConfig(), {
 		path: defPath.BUILD_PATH,
 		// 所有输出文件的目标路径
 		filename: 'js/bundle.js?[chunkhash:10]',
-		publicPath: 'http://xxx.xxx.xxx/',
+		publicPath: 'http://1.haiketest.applinzi.com/',
 		chunkFilename: 'chunk.js?[chunkhash:10]'
 	},
 	module: {

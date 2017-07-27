@@ -1,7 +1,7 @@
 /*
 	封装请求
 */
-require('es6-promise').polyfill();
+// require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 // baseUrl 由 webpack 根据 环境变量 更换

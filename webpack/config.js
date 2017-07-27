@@ -7,19 +7,18 @@ exports.sassLoaderSuffix = '?outputStyle=expanded&sourceMap=true&sourceMapConten
 exports.sassLoaderProd = '?outputStyle=expanded';
 
 exports.vendor = [
+	'history',
+	'isomorphic-fetch',
+	'pure-render-decorator',
 	'react',
+	'react-addons-css-transition-group',
 	'react-dom',
 	'react-redux',
 	'react-router-dom',
 	'react-router-redux',
 	'react-tap-event-plugin',
 	'redux',
-	'redux-thunk',
-	'isomorphic-fetch',
-	'es6-promise',
-	'pure-render-decorator',
-	'react-addons-css-transition-group',
-	'history'
+	'redux-thunk'
 ];
 
 exports.autoConfig = {

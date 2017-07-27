@@ -2,6 +2,7 @@
    app/js/index.js
    入口文件, 配置 webpack 热加载模块
 */
+import 'babel-polyfill';
 import '../scss/index.scss';
 
 import React from 'react';

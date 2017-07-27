@@ -1,21 +1,25 @@
 {
-    "presets": [
-        ["es2015", {
-            "modules": false
-        }],
-        "stage-2",
-        "react"
-    ],
-    "plugins": [
-        "react-hot-loader/babel",
-        "transform-object-assign",
-        "transform-decorators-legacy"
-    ],
-    "env": {
-        "development": {
-            "plugins": [
-                "react-hot-loader/babel"
-            ]
-        }
-    }
+   "presets": [
+      ["env", {
+         "targets": {
+            "browsers": ["last 2 versions"],
+            "node": "current"
+         },
+         "modules": false,
+         "useBuiltIns": true
+      }],
+      "stage-2",
+      "react"
+   ],
+   "plugins": [
+      "react-hot-loader/babel",
+      "transform-decorators-legacy"
+   ],
+   "env": {
+      "development": {
+         "plugins": [
+            "react-hot-loader/babel"
+         ]
+      }
+   }
 }
