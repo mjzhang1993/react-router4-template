@@ -1,5 +1,13 @@
 # react-router 4 项目模板
+> 重要文件版本
 
+- "react": "^15.6.1",
+- "react-router-dom": "^4.1.2",
+- "redux": "^3.7.2",
+- "webpack": "^3.3.0",
+- "react-hot-loader": "^3.0.0-beta.7",
+
+> 旧版本 react-router3 webpack2 [看这里](https://github.com/mjzhang1993/webpack-react-template)
 
 ## 1.编译并生成开发版本
 
