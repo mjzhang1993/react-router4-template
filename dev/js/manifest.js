@@ -89,7 +89,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "14cedffccf5b99719449"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c3ea4c376ed37b727387"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -311,11 +311,19 @@
 /******/ 		hotDeferred = null;
 /******/ 		if(!deferred) return;
 /******/ 		if(hotApplyOnUpdate) {
-/******/ 			hotApply(hotApplyOnUpdate).then(function(result) {
-/******/ 				deferred.resolve(result);
-/******/ 			}, function(err) {
-/******/ 				deferred.reject(err);
-/******/ 			});
+/******/ 			// Wrap deferred object in Promise to mark it as a well-handled Promise to
+/******/ 			// avoid triggering uncaught exception warning in Chrome.
+/******/ 			// See https://bugs.chromium.org/p/chromium/issues/detail?id=465666
+/******/ 			Promise.resolve().then(function() {
+/******/ 				return hotApply(hotApplyOnUpdate);
+/******/ 			}).then(
+/******/ 				function(result) {
+/******/ 					deferred.resolve(result);
+/******/ 				},
+/******/ 				function(err) {
+/******/ 					deferred.reject(err);
+/******/ 				}
+/******/ 			);
 /******/ 		} else {
 /******/ 			var outdatedModules = [];
 /******/ 			for(var id in hotUpdate) {
@@ -537,6 +545,9 @@
 /******/ 			// remove module from cache
 /******/ 			delete installedModules[moduleId];
 /******/ 	
+/******/ 			// when disposing there is no need to call dispose handler
+/******/ 			delete outdatedDependencies[moduleId];
+/******/ 	
 /******/ 			// remove "parents" references from all children
 /******/ 			for(j = 0; j < module.children.length; j++) {
 /******/ 				var child = installedModules[module.children[j]];
@@ -582,30 +593,34 @@
 /******/ 		for(moduleId in outdatedDependencies) {
 /******/ 			if(Object.prototype.hasOwnProperty.call(outdatedDependencies, moduleId)) {
 /******/ 				module = installedModules[moduleId];
-/******/ 				moduleOutdatedDependencies = outdatedDependencies[moduleId];
-/******/ 				var callbacks = [];
-/******/ 				for(i = 0; i < moduleOutdatedDependencies.length; i++) {
-/******/ 					dependency = moduleOutdatedDependencies[i];
-/******/ 					cb = module.hot._acceptedDependencies[dependency];
-/******/ 					if(callbacks.indexOf(cb) >= 0) continue;
-/******/ 					callbacks.push(cb);
-/******/ 				}
-/******/ 				for(i = 0; i < callbacks.length; i++) {
-/******/ 					cb = callbacks[i];
-/******/ 					try {
-/******/ 						cb(moduleOutdatedDependencies);
-/******/ 					} catch(err) {
-/******/ 						if(options.onErrored) {
-/******/ 							options.onErrored({
-/******/ 								type: "accept-errored",
-/******/ 								moduleId: moduleId,
-/******/ 								dependencyId: moduleOutdatedDependencies[i],
-/******/ 								error: err
-/******/ 							});
+/******/ 				if(module) {
+/******/ 					moduleOutdatedDependencies = outdatedDependencies[moduleId];
+/******/ 					var callbacks = [];
+/******/ 					for(i = 0; i < moduleOutdatedDependencies.length; i++) {
+/******/ 						dependency = moduleOutdatedDependencies[i];
+/******/ 						cb = module.hot._acceptedDependencies[dependency];
+/******/ 						if(cb) {
+/******/ 							if(callbacks.indexOf(cb) >= 0) continue;
+/******/ 							callbacks.push(cb);
 /******/ 						}
-/******/ 						if(!options.ignoreErrored) {
-/******/ 							if(!error)
-/******/ 								error = err;
+/******/ 					}
+/******/ 					for(i = 0; i < callbacks.length; i++) {
+/******/ 						cb = callbacks[i];
+/******/ 						try {
+/******/ 							cb(moduleOutdatedDependencies);
+/******/ 						} catch(err) {
+/******/ 							if(options.onErrored) {
+/******/ 								options.onErrored({
+/******/ 									type: "accept-errored",
+/******/ 									moduleId: moduleId,
+/******/ 									dependencyId: moduleOutdatedDependencies[i],
+/******/ 									error: err
+/******/ 								});
+/******/ 							}
+/******/ 							if(!options.ignoreErrored) {
+/******/ 								if(!error)
+/******/ 									error = err;
+/******/ 							}
 /******/ 						}
 /******/ 					}
 /******/ 				}
