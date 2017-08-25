@@ -21,4 +21,6 @@
 
 > `npm run run`
 
+> 另外开一个命令行工具 `npm run server`
+
 - 2.服务器地址在` webpack -- API.js` 中配置，另外生产版本需要添加 `output.publicPath`
