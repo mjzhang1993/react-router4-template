@@ -8,13 +8,31 @@
       <meta name="apple-mobile-web-app-capable" content="yes">
       <meta name="browsermode" content="application">
       <meta name="full-screen" content="yes">
-      <meta name="screen-orientation"content="portrait">
+      <meta name="screen-orientation" content="portrait">
       <title>webpack-react-template</title>
-   <link href="/static/css/app.7a8f51a223.css" rel="stylesheet"/></head>
+      <!-- Polyfills -->
+      <!--[if lt IE 10]> <script
+      src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,es5-shim/4.5.7/es5-shim.min.js,es5-shim/4.5.7/es5-sham.min.js,es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js,html5shiv/3.7.2/html5shiv.min.js,media-match/2.0.2/media.match.min.js"></script>
+      <![endif]-->
+      <!--[if lte IE 11]> <script src="https://as.alipayobjects.com/g/component/??es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js"></script> <![endif]-->
+      <script>
+         var iScale = 1;
+         var userScal = window.devicePixelRatio;
+         iScale = iScale / userScal;
+         document.write('<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=' + iScale + ",minimum-scale=" + iScale + ",maximum-scale=" + iScale + '">');
+         var iWidth = document.documentElement.clientWidth;
+         // 用来设置 font-size 的 rem => px
+         if (iWidth / userScal >= 750) {
+            document.getElementsByTagName("html")[0].style.fontSize = 100 * userScal + 'px';
+         } else {
+            document.getElementsByTagName("html")[0].style.fontSize = iWidth * 100 / 375 + "px";
+         }
+      </script>
+   <link href="/static/css/app.ec6e1795a1.css" rel="stylesheet"/></head>
 
    <body>
       <div id="app"></div>
       <!-- <script src="http://10.15.22.43:8087/target/target-script-min.js#anonymous"></script> -->
-   <script type="text/javascript" src="/static/js/runtime.fd75be33b4.bundle.js"></script><script type="text/javascript" src="/static/js/vendor.f628cd2481.bundle.js"></script><script type="text/javascript" src="/static/js/app.dd47f751c2.bundle.js"></script></body>
+   <script type="text/javascript" src="/static/js/runtime.c7cc772ab3.bundle.js"></script><script type="text/javascript" src="/static/js/vendor.e69a77365d.bundle.js"></script><script type="text/javascript" src="/static/js/app.ef434871b5.bundle.js"></script></body>
 
 </html>

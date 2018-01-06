@@ -67,10 +67,7 @@ module.exports = {
 				}
 			}, {
             test: require.resolve(common.requestModule),
-            loader: 'imports-loader',
-            options: {
-               basicRequestLink: JSON.stringify(current.conf.basicRequestLink)
-            }
+            loader: 'imports-loader?basicRequestLink=>' + JSON.stringify(current.conf.basicRequestLink)
          }
 		]
 	},

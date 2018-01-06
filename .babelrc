@@ -10,7 +10,9 @@
       "stage-2",
       "react"
    ],
-   "plugins": ["transform-runtime", "react-hot-loader/babel"],
+   "plugins": [
+      "transform-runtime", "transform-decorators-legacy", "react-hot-loader/babel"
+   ],
    "env": {
       "test": {
          "presets": ["env", "stage-2", "react"],

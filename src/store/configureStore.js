@@ -15,14 +15,16 @@ const middleware = [routeMiddleware, thunk];
 /*
 	辅助使用chrome浏览器进行redux调试
 */
-const composeEnhancers =
+const shouldCompose =
    process.env.NODE_ENV !== 'production' &&
    typeof window === 'object' &&
-   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-           // Specify here name, actionsBlacklist, actionsCreators and other options
-        })
-      : compose;
+   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+
+const composeEnhancers = shouldCompose
+   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify here name, actionsBlacklist, actionsCreators and other options
+     })
+   : compose;
 
 /*
    调用 applyMiddleware ，使用 middleware 来增强 createStore
