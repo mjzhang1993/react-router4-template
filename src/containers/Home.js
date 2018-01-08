@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import bindActions from '../utils/bindActions';
 
 import HomeCom from '../components/Home/index';
-import {getMemberList, changeInputInfo, postNewInfo} from '../modules/root/actions';
+import {getMemberList, changeInputInfo, postNewInfo} from '../modules/home/actions';
 
 class Home extends Component {
 	constructor(props) {
@@ -18,7 +18,7 @@ class Home extends Component {
 }
 
 export default connect(
-   state => ({rootState: state.root}),
+   state => ({homeState: state.home}),
    dispatch => (bindActions(dispatch, {
       getMemberList, changeInputInfo, postNewInfo
    }))

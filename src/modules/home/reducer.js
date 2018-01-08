@@ -25,7 +25,7 @@ const typesCommands = {
    }
 }
 
-export default function root(state = initialState, action) {
+export default function home(state = initialState, action) {
    const actionResponse = typesCommands[action.type];
 
    return actionResponse ? actionResponse(state, action) : state;

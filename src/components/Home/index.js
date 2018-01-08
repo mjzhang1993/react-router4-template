@@ -16,8 +16,8 @@ export default class HomeCom extends Component {
       this.props.getMemberList();
    }
    render() {
-      const {rootState, changeInputInfo, postNewInfo} = this.props;
-      const {memberList, inputInfo} = rootState;
+      const {homeState, changeInputInfo, postNewInfo} = this.props;
+      const {memberList, inputInfo} = homeState;
 
       return (
          <div id="home-container">
