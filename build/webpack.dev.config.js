@@ -19,9 +19,7 @@ module.exports = merge(baseWebpackConfig, {
 			{
 				test: /\.(scss|sass|css)$/,
 				include: common.sourceCode,
-				use: utils.computeStyleLoader(false, [
-               'style-loader', 'css-loader', 'postcss-loader', 'sass-loader'
-            ])
+				use: utils.computeStyleLoader(false, ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'])
 			}
 		]
 	},
@@ -30,12 +28,8 @@ module.exports = merge(baseWebpackConfig, {
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({'process.env.NODE_ENV': current.conf.env.NODE_ENV}),
-		new webpack.optimize.CommonsChunkPlugin({
-         name: 'vendor'
-      }),
-		new webpack.optimize.CommonsChunkPlugin({
-         name: 'runtime'
-      }),
+		new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
+		new webpack.optimize.CommonsChunkPlugin({name: 'runtime'}),
 		new webpack.NoEmitOnErrorsPlugin(),
 		new FriendlyErrorsPlugin()
 	]

@@ -2,22 +2,18 @@
    成员组
 */
 // PureComponent 在 react 16版本中代替 'pure-render-decorator' 功能，减少 render
-import React, {PureComponent} from 'react';
+import React from 'react';
 import MemberItems from './MemberItems';
 
-export default class MemberList extends PureComponent {
-   constructor(props) {
-      super(props);
-   }
-   render() {
-      const memberList = this.props.memberList;
+/*
+   纯展示型组件可以使用函数式组件，传入的第一个参数是 props ，在这里不能访问 this
+*/
+const MemberList = ({memberList}) => (
+   <div className="member-list-wrap">
+      <ul className="member-list">
+         <MemberItems memberList={memberList}/>
+      </ul>
+   </div>
+);
 
-      return (
-         <div className="member-list-wrap">
-            <ul className="member-list">
-               <MemberItems memberList={memberList}/>
-            </ul>
-         </div>
-      );
-   }
-}
+export default MemberList;

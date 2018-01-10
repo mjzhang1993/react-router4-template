@@ -18,7 +18,9 @@ export default class NewMember extends PureComponent {
    handleClick = () => {
       const {postNewInfo, inputInfo} = this.props;
 
-      postNewInfo(inputInfo);
+      postNewInfo(inputInfo)
+         .then(res => console.log('success return ', res))
+         .catch(err => console.error(err));
    }
    render() {
       const {name, tel} = this.props.inputInfo;

@@ -1,5 +1,5 @@
 /*
-   root 的网络请求部分
+   home 的网络请求部分
 */
 import {get, post} from './request';
 
@@ -8,5 +8,8 @@ export function obtainMemberList() {
 }
 
 export function postNewMember(newMember) {
+   if (!newMember.name) {
+      return Promise.reject('name is wrong');
+   }
    return post('/list', newMember).then(res => res.data);
 }

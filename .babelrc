@@ -12,11 +12,5 @@
    ],
    "plugins": [
       "transform-runtime", "transform-decorators-legacy", "react-hot-loader/babel"
-   ],
-   "env": {
-      "test": {
-         "presets": ["env", "stage-2", "react"],
-         "plugins": ["istanbul"]
-      }
-   }
+   ]
 }
