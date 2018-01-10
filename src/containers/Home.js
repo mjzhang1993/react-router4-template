@@ -3,8 +3,7 @@
 */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
-import bindActions from '../utils/bindActions';
+import {bindActionCreators} from 'redux';
 
 import HomeCom from '../components/Home/index';
 import {getMemberList, changeInputInfo, postNewInfo} from '../modules/home/actions';
@@ -33,12 +32,9 @@ class Home extends Component {
 
 export default connect(
 	state => ({homeState: state.home}),
-	// dispatch => ({
-	// 	getMemberList: bindActionCreators(getMemberList, dispatch),
-	// 	changeInputInfo: bindActionCreators(changeInputInfo, dispatch),
-	// 	postNewInfo: bindActionCreators(postNewInfo, dispatch),
-	// })
-	dispatch => (bindActions(dispatch, {
-		getMemberList, changeInputInfo, postNewInfo
-	}))
+	dispatch => ({
+		getMemberList: bindActionCreators(getMemberList, dispatch),
+		changeInputInfo: bindActionCreators(changeInputInfo, dispatch),
+		postNewInfo: bindActionCreators(postNewInfo, dispatch),
+	})
 )(Home);

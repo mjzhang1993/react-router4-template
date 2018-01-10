@@ -1,7 +1,6 @@
 /*
    成员组
 */
-// PureComponent 在 react 16版本中代替 'pure-render-decorator' 功能，减少 render
 import React from 'react';
 import MemberItems from './MemberItems';
 

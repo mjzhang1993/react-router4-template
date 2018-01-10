@@ -12,40 +12,7 @@ export default class AppCom extends Component {
       super(props);
    }
    componentWillMount() {
-      // 测试装饰器
-      function decorator(target) {
-         target.prototype.getName = function () {
-            alert('decorator', this.name);
-         }
-      }
 
-      @decorator
-      class Decor {
-         constructor(name) {
-            this.name = name;
-         }
-      }
-
-      const decor = new Decor('test decor');
-      decor.getName();
-
-      // 测试 Promise
-      if (Promise) {
-         alert('have Promise');
-      } else {
-         alert('no Promise ❎');
-      }
-
-      // 测试 异步函数
-      async function test() {
-         await new Promise(function (resolve) {
-            resolve('test')
-         })
-      }
-
-      test().then(res => {
-         alert('have async');
-      })
    }
    render() {
 		const currentKey = this.props.location.pathname;

@@ -3,6 +3,7 @@
 */
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
+import TestForm from './TestForm';
 
 import '../../scss/home.scss';
 
@@ -23,12 +24,12 @@ export default class TestCom extends Component {
       });
    }
    render() {
-      console.log(this.props);
-
       return (
          <div className="test-container">
-            this is Test Page
             <button onClick={this.handleClick}>点击回到 home page</button>
+            <TestForm>
+               <div>this is poatals</div>
+            </TestForm>
          </div>
       );
    }
