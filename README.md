@@ -100,7 +100,10 @@
    │   │   │   ├── actions.js
    │   │   │   └── reducer.js
    │   │   └── types-constant.jsv   // 抽出来的 type 常量
-   │   ├── routes.js                // 路由配置文件
+   │   ├── router                   
+   │   │   ├── Bundle.js            // 配置按需加载的外层组件
+   │   │   ├── lazyLoad.js          // 嵌套按需加载组件的方法
+   │   │   └── routes.js            // 基本路由配置
    │   ├── scss                     // 样式文件
    │   │   ├── _common.scss
    │   │   ├── app.scss
