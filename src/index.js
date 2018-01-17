@@ -11,7 +11,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 
 import store from './store/index';
-import Root from './routes';
+import Root from './router/routes';
 
 const history = createHistory();
 const mountNode = document.getElementById('app');

@@ -32,7 +32,7 @@ export default class HomeCom extends Component {
                to={{pathname: '/test', search: '?name=homename', state: {mold: 'add'}}}
                className="home-link"
             >
-               点击跳转到 test page
+               点击跳转到 test page sasas
             </Link>
          </div>
       );

@@ -43,8 +43,8 @@ exports.computeOutput = function (config) {
       env !== 'production' ? 'js/[name].bundle.js' : 'js/[name].[chunkhash:10].bundle.js'
    );
    const chunkFilename = env !== 'production'
-      ? '[id].js'
-      : '[id].[chunkhash:10].js';
+      ? '[name].js'
+      : '[name].[chunkhash:10].js';
 
    const output = {
       path: conf.assetsRoot,
