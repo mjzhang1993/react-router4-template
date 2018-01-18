@@ -7,8 +7,8 @@ import { hot } from 'react-hot-loader';
 
 import lazyLoad from './lazyLoad';
 import App from '../containers/App';
-import Home from 'bundle-loader?lazy&name=home!../containers/Home';
-import Test from 'bundle-loader?lazy&name=test!../containers/Test';
+import Home from 'bundle-loader?lazy&name=Home!../containers/Home';
+import Test from 'bundle-loader?lazy&name=Test!../containers/Test';
 
 const Root = () => (
    <div>

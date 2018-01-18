@@ -53,6 +53,11 @@
 #### 5. 安装 yarn
 > yarn 是用来代替 npm 的 node 包管理工具, 与 npm 有类似的命令，具体安装方式及使用方法查看 [yarn 命令使用](http://blog.csdn.net/mjzhang1993/article/details/70092902)
 
+## 项目相关文章
+
+- [React - Webpack 开发环境重新搭建](http://blog.csdn.net/mjzhang1993/article/details/79013430)
+- [重新搭建 React - Redux - Router 完整项目](http://blog.csdn.net/mjzhang1993/article/details/79022633)
+- [React-router-v4 - Webpack 实现按需加载（code-splitting）](http://blog.csdn.net/mjzhang1993/article/details/79094594)
 
 ## 目录结构说明
 

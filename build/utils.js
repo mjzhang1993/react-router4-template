@@ -40,11 +40,11 @@ exports.computeOutput = function (config) {
    const {env, conf} = exports.getEnvAndConf(config);
    const filename = path.join(
       conf.assetsSubDirectory,
-      env !== 'production' ? 'js/[name].bundle.js' : 'js/[name].[chunkhash:10].bundle.js'
+      env !== 'production' ? 'js/[name].js' : 'js/[name].[chunkhash:10].js'
    );
    const chunkFilename = env !== 'production'
-      ? '[name].js'
-      : '[name].[chunkhash:10].js';
+      ? 'chunk/[name].js'
+      : 'chunk/[name].[chunkhash:10].js';
 
    const output = {
       path: conf.assetsRoot,

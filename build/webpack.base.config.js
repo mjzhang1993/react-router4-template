@@ -23,6 +23,15 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			// {
+			// 	test: /\.bundle\.js$/,
+			// 	loader: 'bundle-loader',
+			// 	include: common.sourceCode,
+			// 	options: {
+			// 		lazy: true,
+			// 		name: '[name]'
+			// 	}
+			// },
 			{
 				test: /\.(js|jsx)$/,
 				loader: 'eslint-loader',
