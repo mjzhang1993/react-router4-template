@@ -8,7 +8,7 @@
       "dev": "node build/dev-server.js",
       "start": "npm run dev",
       "build": "node build/build.js",
-      "server": "node server/index.js"
+      "server": "nodemon server/index.js"
    },
    "dependencies": {
       "axios": "^0.17.1",
@@ -51,7 +51,9 @@
       "imports-loader": "^0.7.1",
       "ip": "^1.1.5",
       "json-server": "^0.12.1",
+      "mockjs": "^1.0.1-beta3",
       "node-sass": "^4.7.2",
+      "nodemon": "^1.14.11",
       "opn": "^5.1.0",
       "optimize-css-assets-webpack-plugin": "^3.2.0",
       "ora": "^1.3.0",

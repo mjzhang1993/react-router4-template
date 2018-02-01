@@ -23,11 +23,16 @@ export default class Bundle extends React.Component {
          调用传入的 load 方法，并传入一个回调函数
          这个回调函数接收 在 load 方法内部异步获取到的组件，并将其更新为 mod 
       */ 
-      props.load(mod => {
+      // props.load(mod => {
+      //    this.setState({
+      //       mod: mod.default ? mod.default : mod
+      //    });
+      // });
+      props.load().then(mod => {
          this.setState({
             mod: mod.default ? mod.default : mod
-         });
-      });
+         })
+      })
    }
 
    render() {
