@@ -1,4 +1,3 @@
-const path = require('path');
 const jsonServer = require('json-server');
 const ip = require('ip').address();
 const server = jsonServer.create();
@@ -14,9 +13,12 @@ server.use(middlewares);
 mounted(server, DB);
 server.use(router);
 
-server.listen({
-	host: ip,
-	port: 3167
-}, function() {
-	console.log(`JSON Server is running in http://${ip}:3167`);
-});
+server.listen(
+   {
+      host: ip,
+      port: 3167
+   },
+   function() {
+      console.log(`JSON Server is running in http://${ip}:3167`);
+   }
+);

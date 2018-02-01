@@ -1,22 +1,23 @@
 # react16-router4-template
 
 ## 重要文件版本
+
 > 更多版本信息查看 package.json 文件
 
-- "react": "^16.2.0"
-- "react-hot-loader": "^4.0.0-beta.12"
-- "react-redux": "^5.0.6"
-- "react-router-dom": "^4.2.2"
-- "react-router-redux": "^5.0.0-alpha.9"
-- "redux": "^3.7.2"
+* "react": "^16.2.0"
+* "react-hot-loader": "^4.0.0-beta.12"
+* "react-redux": "^5.0.6"
+* "react-router-dom": "^4.2.2"
+* "react-router-redux": "^5.0.0-alpha.9"
+* "redux": "^3.7.2"
 
-- "babel-core": "^6.26.0",
-- "babel-eslint": "^8.1.2",
-- "babel-loader": "^7.1.2",
-- "eslint": "^4.14.0",
-- "postcss-loader": "^2.0.10",
-- "webpack": "^3.10.0",
-- "webpack-dev-server": "^2.9.7",
+* "babel-core": "^6.26.0",
+* "babel-eslint": "^8.1.2",
+* "babel-loader": "^7.1.2",
+* "eslint": "^4.14.0",
+* "postcss-loader": "^2.0.10",
+* "webpack": "^3.10.0",
+* "webpack-dev-server": "^2.9.7",
 
 ## 命令
 
@@ -51,13 +52,14 @@
 ```
 
 #### 5. 安装 yarn
+
 > yarn 是用来代替 npm 的 node 包管理工具, 与 npm 有类似的命令，具体安装方式及使用方法查看 [yarn 命令使用](http://blog.csdn.net/mjzhang1993/article/details/70092902)
 
 ## 项目相关文章
 
-- [React - Webpack 开发环境重新搭建](http://blog.csdn.net/mjzhang1993/article/details/79013430)
-- [重新搭建 React - Redux - Router 完整项目](http://blog.csdn.net/mjzhang1993/article/details/79022633)
-- [React-router-v4 - Webpack 实现按需加载（code-splitting）](http://blog.csdn.net/mjzhang1993/article/details/79094594)
+* [React - Webpack 开发环境重新搭建](http://blog.csdn.net/mjzhang1993/article/details/79013430)
+* [重新搭建 React - Redux - Router 完整项目](http://blog.csdn.net/mjzhang1993/article/details/79022633)
+* [React-router-v4 - Webpack 实现按需加载（code-splitting）](http://blog.csdn.net/mjzhang1993/article/details/79094594)
 
 ## 目录结构说明
 
@@ -105,7 +107,7 @@
    │   │   │   ├── actions.js
    │   │   │   └── reducer.js
    │   │   └── types-constant.jsv   // 抽出来的 type 常量
-   │   ├── router                   
+   │   ├── router
    │   │   ├── Bundle.js            // 配置按需加载的外层组件
    │   │   ├── lazyLoad.js          // 嵌套按需加载组件的方法
    │   │   └── routes.js            // 基本路由配置

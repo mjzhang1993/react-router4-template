@@ -36,8 +36,6 @@ const composeEnhancers = shouldCompose
 /*
    调用 applyMiddleware ，使用 middleware 来增强 createStore
 */
-const configureStore = composeEnhancers(applyMiddleware(...middleware))(
-   createStore
-);
+const configureStore = composeEnhancers(applyMiddleware(...middleware))(createStore);
 
 export default configureStore;

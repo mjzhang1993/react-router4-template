@@ -1,7 +1,7 @@
 /*
    home 的网络请求部分
 */
-import {get, post} from './request';
+import { get, post } from './request';
 
 export function obtainMemberList() {
    return get('/list').then(res => res.data);

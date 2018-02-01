@@ -4,7 +4,7 @@
    开发时，尽量将重复使用组件抽取出来
 */
 // PureComponent 在 react 16版本中代替 'pure-render-decorator' 功能，减少 render
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 
 export default class MemberItems extends PureComponent {
    constructor(props) {
@@ -16,8 +16,12 @@ export default class MemberItems extends PureComponent {
       return memberList.map((item, i) => {
          return (
             <li key={i}>
-               <p>name:<span>{item.name}</span></p>
-               <p>tel:<span>{item.tel}</span></p>
+               <p>
+                  name:<span>{item.name}</span>
+               </p>
+               <p>
+                  tel:<span>{item.tel}</span>
+               </p>
             </li>
          );
       });

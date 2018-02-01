@@ -1,6 +1,6 @@
 // 测试
 
-import {PureComponent} from 'react';
+import { PureComponent } from 'react';
 import ReactDom from 'react-dom';
 
 export default class TestForm extends PureComponent {
@@ -9,9 +9,6 @@ export default class TestForm extends PureComponent {
       this.el = document.querySelector('body');
    }
    render() {
-      return ReactDom.createPortal(
-         this.props.children,
-         this.el
-      )
+      return ReactDom.createPortal(this.props.children, this.el);
    }
 }

@@ -14,13 +14,15 @@ import App from '../containers/App';
 // import Home from 'bundle-loader?lazy&name=Home!../containers/Home';
 // import Test from 'bundle-loader?lazy&name=Test!../containers/Test';
 
-const Home = lazyLoad(() => import(/* webpackChunkName: "Home" */'../containers/Home'));
-const Test = lazyLoad(() => import(/* webpackChunkName: "Test" */'../containers/Test'));
+const Home = lazyLoad(() => import(/* webpackChunkName: "Home" */ '../containers/Home'));
+const Test = lazyLoad(() => import(/* webpackChunkName: "Test" */ '../containers/Test'));
 
 const Root = () => (
    <div>
       <Switch>
-         <Route path="/" render={props => (
+         <Route
+            path="/"
+            render={props => (
                <App>
                   <Switch>
                      {/* <Route path="/" exact component={lazyLoad(Home)} />

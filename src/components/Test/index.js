@@ -2,7 +2,7 @@
    Test 容器组件的子组件，信息展示
 */
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import TestForm from './TestForm';
 
 import '../../scss/home.scss';
@@ -22,7 +22,7 @@ export default class TestCom extends Component {
          pathname: '/home',
          search: '?name=testname'
       });
-   }
+   };
    render() {
       return (
          <div className="test-container">

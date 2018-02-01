@@ -1,6 +1,3 @@
-webpack/**/*
 node-modules/**/*
 dev/**/*
-build/**/*
 dist/**/*
-config/**/*

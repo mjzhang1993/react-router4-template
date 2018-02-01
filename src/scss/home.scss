@@ -1,41 +1,41 @@
 /* Home 容器组件样式 */
-@import "common";
+@import 'common';
 
-#home-container{
+#home-container {
    @include wh100;
    background: #eee;
-   border-radius: 0 0 .05rem .05rem;
+   border-radius: 0 0 0.05rem 0.05rem;
    position: relative;
-   .new-member{
+   .new-member {
       width: 100%;
-      height: .5rem;
+      height: 0.5rem;
       background: #333;
       color: #fff;
       display: flex;
       justify-content: space-around;
       align-items: center;
    }
-   .member-list-wrap{
-      @include pa(.5rem,0,0,0);
+   .member-list-wrap {
+      @include pa(0.5rem,0,0,0);
       overflow-y: auto;
    }
-   .member-list{
+   .member-list {
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: auto;
       @include flexv;
-      &>li{
+      & > li {
          width: 100%;
-         height: .44rem;
-         border-bottom: .01rem dashed #999;
+         height: 0.44rem;
+         border-bottom: 0.01rem dashed #999;
          display: flex;
          justify-content: space-around;
          align-items: center;
       }
    }
-   .home-link{
+   .home-link {
       position: absolute;
       left: 50%;
       bottom: 10px;

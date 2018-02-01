@@ -9,5 +9,5 @@ const reducers = {
    routing: routerReducer
 };
 
-// combineReducers() 函数用于将分离的 reducer 合并为一个 reducer 
+// combineReducers() 函数用于将分离的 reducer 合并为一个 reducer
 export default combineReducers(reducers);

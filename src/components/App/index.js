@@ -2,7 +2,7 @@
    App 容器组件的子组件，顶部状态栏
 */
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import '../../scss/app.scss';
 
@@ -11,11 +11,9 @@ export default class AppCom extends Component {
    constructor(props) {
       super(props);
    }
-   componentWillMount() {
-
-   }
+   componentWillMount() {}
    render() {
-		const currentKey = this.props.location.pathname;
+      const currentKey = this.props.location.pathname;
       console.log(currentKey);
 
       return (

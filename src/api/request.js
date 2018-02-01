@@ -10,22 +10,22 @@ const basicHost = basicRequestLink;
 console.log(basicHost);
 
 // 删除底部 '/'
-function deleteSlash (host) {
+function deleteSlash(host) {
    return host.replace(/\/$/, '');
 }
 
 // 添加头部 '/'
-function addSlash (path) {
+function addSlash(path) {
    return /^\//.test(path) ? path : `/${path}`;
 }
 
 // 解析参数
-function separateParams (url) {
+function separateParams(url) {
    const [path = '', paramsLine = ''] = url.split('?');
 
    let params = {};
 
-   paramsLine.split('&').forEach((item) => {
+   paramsLine.split('&').forEach(item => {
       const [key, value] = item.split('=');
 
       params[key] = value;
@@ -36,17 +36,13 @@ function separateParams (url) {
 
 // 主要请求方法
 export default function request(config) {
-   let {
-      method, url, data = {}, host, headers
-   } = config;
+   let { method, url, data = {}, host, headers } = config;
 
-   method = method && method.toUpperCase() || 'GET';
+   method = (method && method.toUpperCase()) || 'GET';
 
    const { path, params } = separateParams(url);
 
-   url = host
-      ? `${deleteSlash(host)}${addSlash(path)}`
-      : `${deleteSlash(basicHost)}${addSlash(path)}`;
+   url = host ? `${deleteSlash(host)}${addSlash(path)}` : `${deleteSlash(basicHost)}${addSlash(path)}`;
 
    return axios({
       url,
