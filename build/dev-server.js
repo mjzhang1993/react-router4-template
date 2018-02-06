@@ -24,7 +24,7 @@ const devServerOptions = {
    contentBase: resolve('dev'),
    publicPath: devConfig.assetsPublicPath,
    historyApiFallback: true,
-   clientLogLevel: 'none',
+//    clientLogLevel: 'none',
    hot: true,
    inline: true,
    compress: true,
