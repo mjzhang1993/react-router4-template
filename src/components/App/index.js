@@ -3,22 +3,22 @@
 */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types'; // 类型检查捕获错误
 
 import '../../scss/app.scss';
 
-@withRouter
-export default class AppCom extends Component {
+class AppCom extends Component {
    constructor(props) {
       super(props);
    }
-   componentWillMount() {}
    render() {
-      const currentKey = this.props.location.pathname;
+      const { title, location } = this.props;
+      const currentKey = location.pathname;
       console.log(currentKey);
 
       return (
          <div id="app-container">
-            <header className="app-header">成员列表</header>
+            <header className="app-header">{title}</header>
             <div className="app-body">
                {this.props.children}
                {/* <Link to="/test">点击进入 Test 页面</Link> */}
@@ -29,3 +29,14 @@ export default class AppCom extends Component {
       );
    }
 }
+// 设置默认值
+AppCom.defaultProps = {
+   title: 'default title'
+};
+
+// 规定类型
+AppCom.propTypes = {
+   title: PropTypes.string
+};
+
+export default withRouter(AppCom);

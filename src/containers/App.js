@@ -10,8 +10,8 @@ class App extends Component {
       super(props);
    }
    render() {
-      return <AppCom>{this.props.children}</AppCom>;
+      return <AppCom title={this.props.title}>{this.props.children}</AppCom>;
    }
 }
 
-export default connect()(App);
+export default connect(state => ({ title: state.home.title }))(App);

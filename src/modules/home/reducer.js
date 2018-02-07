@@ -11,7 +11,8 @@ const initialState = {
    inputInfo: {
       name: '',
       tel: ''
-   }
+   },
+   title: '成员列表'
 };
 
 /*
