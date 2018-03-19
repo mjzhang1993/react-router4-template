@@ -10,6 +10,7 @@ class App extends Component {
       super(props);
    }
    render() {
+      
       return <AppCom title={this.props.title}>{this.props.children}</AppCom>;
    }
 }

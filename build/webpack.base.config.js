@@ -71,6 +71,10 @@ module.exports = {
          {
             test: require.resolve(common.requestModule),
             loader: 'imports-loader?basicRequestLink=>' + JSON.stringify(current.conf.basicRequestLink)
+         },
+         {
+            test: require.resolve(utils.resolve(common.sourceCode)('index.js')),
+            loader: 'imports-loader?assetsPublicPath=>' + JSON.stringify(current.conf.assetsPublicPath)
          }
       ]
    },

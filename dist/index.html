@@ -9,6 +9,7 @@
       <meta name="browsermode" content="application">
       <meta name="full-screen" content="yes">
       <meta name="screen-orientation" content="portrait">
+      <link rel="manifest" href="./manifest.json">
       <title>webpack-react-template</title>
       <!-- Polyfills -->
       <!--[if lt IE 10]>
@@ -30,11 +31,22 @@
             document.getElementsByTagName('html')[0].style.fontSize = iWidth * 100 / 375 + 'px';
          }
       </script>
-   <link href="/static/css/app.db702a8f99.css" rel="stylesheet"/></head>
+   <link href="/test/static/css/app.db702a8f99.css" rel="stylesheet"/></head>
 
    <body>
       <div id="app"></div>
+      <script>
+         if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+               navigator.serviceWorker.register('./service-wroker.js').then(registration => {
+                  console.log('SW registered: ', registration);
+               }).catch(registrationError => {
+                  console.log('SW registration failed: ', registrationError);
+               });
+            });
+         }
+      </script>
       <!-- <script src="http://10.15.22.43:8087/target/target-script-min.js#anonymous"></script> -->
-   <script type="text/javascript" src="/static/js/runtime.bb302af679.js"></script><script type="text/javascript" src="/static/js/vendor.24abce0bdf.js"></script><script type="text/javascript" src="/static/js/app.892d8fd955.js"></script></body>
+   <script type="text/javascript" src="/test/static/js/runtime.be6eacd1b9.js"></script><script type="text/javascript" src="/test/static/js/vendor.24abce0bdf.js"></script><script type="text/javascript" src="/test/static/js/app.5de814f558.js"></script></body>
 
 </html>

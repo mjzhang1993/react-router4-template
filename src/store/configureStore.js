@@ -3,15 +3,10 @@
 */
 
 import { compose, createStore, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
 // 引入thunk 中间件，处理异步操作
 import thunk from 'redux-thunk';
-import createHistory from 'history/createBrowserHistory';
 
-const history = createHistory();
-// 生成 router中间件
-const routeMiddleware = routerMiddleware(history);
-const middleware = [routeMiddleware, thunk];
+const middleware = [thunk];
 
 /*
 	辅助使用chrome浏览器进行redux调试

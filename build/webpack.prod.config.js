@@ -9,18 +9,42 @@ const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.config');
 const utils = require('./utils');
 const config = require('../config/index');
 const common = config.common;
 const current = utils.getEnvAndConf(config);
 
+// 打包信息展示插件
 let reportPlugin = [];
 
 if (current.conf.bundleAnalyzerReport) {
    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
    reportPlugin.push(new BundleAnalyzerPlugin());
+}
+
+// workbox 插件
+let workboxPlugin = [];
+
+if (current.conf.needWorkboxSW) {
+   const WorkboxPlugin = require('workbox-webpack-plugin');
+   const defaultConfig = {
+      cacheId: 'webpack-pwa',
+      skipWaiting: true,
+      clientsClaim: true,
+      swDest: 'service-wroker.js',
+      globPatterns: ['**/*.{html,js,css,png.jpg}'],
+      globIgnores: [ 'service-wroker.js' ],
+      runtimeCaching: [
+         {
+            urlPattern: /.*\.js/,
+            handler: 'networkFirst', // 网络优先
+         }
+      ]
+   };
+   workboxPlugin.push(new WorkboxPlugin.GenerateSW(current.conf.workboxConfig || defaultConfig));
 }
 
 module.exports = merge(baseWebpackConfig, {
@@ -59,6 +83,17 @@ module.exports = merge(baseWebpackConfig, {
       }),
       new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
       new webpack.optimize.CommonsChunkPlugin({ name: 'runtime' }),
+      new CopyWebpackPlugin([
+         {
+            from: 'src/manifest.json',
+            to: 'manifest.json'
+         },
+         {
+            from: 'src/icon.png',
+            to: 'static/imgs/icon.png'
+         }
+      ]),
+      ...workboxPlugin,
       ...reportPlugin
    ]
 });

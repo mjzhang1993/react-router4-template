@@ -28,7 +28,9 @@ module.exports = {
       entryPath: null, // 默认为 './src/index.js'
       assetsRoot: resolve('dist'), // 编译后的静态资源路径
       assetsSubDirectory: 'static',
-      assetsPublicPath: '/',
+      assetsPublicPath: '/test/', // 发布到哪个目录下就写哪里 最后要加上 /
+      needWorkboxSW: true, // 是否需要 workbox 配置 service worker
+      workboxConfig: null, // workbox 配置 null 表示默认配置
       productionSourceMap: false, // js sourceMap
       bundleAnalyzerReport: utils.shouldReport() // 是否显示 report
    }

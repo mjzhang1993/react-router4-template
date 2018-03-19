@@ -1,0 +1,18 @@
+{
+   "name": "webpacl PWA Demo",
+   "short_name": "Webpack PWA",
+   "start_url": "./index.html",
+   "display": "standalone",
+   "description": "this is a Webpack-PWA project create by workbox",
+   "orientation": "natural",
+   "prefer_related_applications": false,
+   "theme_color": "#FFDF00",
+   "background_color": "#FFDF00",
+   "icons": [
+      {
+         "src": "static/imgs/icon.png",
+         "sizes": "144x144",
+         "type": "image/png"
+      }
+   ]
+}

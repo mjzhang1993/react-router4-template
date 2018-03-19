@@ -1,19 +1,25 @@
 /*
    项目入口
+   2018.03.19 更新：
+      去除的 react-router-redux 模块，
+      组价想要导入路由信息，同一通过 'react-router-dom' 模块的 withRouter 实现
 */
+
+
+/* eslint-disable no-undef */
+const publicPath = assetsPublicPath;
+// assetsPublicPath 在 /config/index.js 中配置，由 imports-loader 注入
 
 import './scss/index.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
+import {BrowserRouter} from 'react-router-dom';
 
 import store from './store/index';
 import Root from './router/routes';
 
-const history = createHistory();
 const mountNode = document.getElementById('app');
 
 /*
@@ -22,9 +28,9 @@ const mountNode = document.getElementById('app');
 */
 ReactDOM.render(
    <Provider store={store}>
-      <ConnectedRouter history={history} basename="">
+      <BrowserRouter basename={publicPath}>
          <Root />
-      </ConnectedRouter>
+      </BrowserRouter>
    </Provider>,
    mountNode
 );

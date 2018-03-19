@@ -1,5 +1,9 @@
 # react16-router4-template
 
+### 重要更新
+
+- 2018.03.19 : 去除 "react-router-redux" 模块，增加 PWA 配置，增加配置发布目录
+
 ## 重要文件版本
 
 > 更多版本信息查看 package.json 文件
