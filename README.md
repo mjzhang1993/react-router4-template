@@ -12,7 +12,7 @@
 * "react-hot-loader": "^4.0.0-beta.12"
 * "react-redux": "^5.0.6"
 * "react-router-dom": "^4.2.2"
-* "react-router-redux": "^5.0.0-alpha.9"
+* "~~react-router-redux~~": "^5.0.0-alpha.9"
 * "redux": "^3.7.2"
 
 * "babel-core": "^6.26.0",
@@ -127,3 +127,5 @@
    │       └── bindActions.js
    └── yarn.lock
 ```
+
+
