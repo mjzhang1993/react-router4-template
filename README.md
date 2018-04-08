@@ -1,5 +1,10 @@
 # react16-router4-template
 
+### 两个版本
+
+- master 分支与 v1.0.0 tag 是 webpack 3.x 的版本
+- webpack-v4-template 分支与 v2.0.0 tag 是 webpack 4.x 的版本
+
 ### 重要更新
 
 - 2018.04.08 : 更新 webpack 为 4.x 版本，整体进行版本升级
