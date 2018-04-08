@@ -35,7 +35,9 @@ exports.computeEntry = function(config, packageConfig) {
 exports.computeOutput = function(config) {
    const { env, conf } = exports.getEnvAndConf(config);
    const filename = path.join(conf.assetsSubDirectory, env !== 'production' ? 'js/[name].js' : 'js/[name].[chunkhash:10].js');
-   const chunkFilename = env !== 'production' ? 'chunk/[name].js' : 'chunk/[name].[chunkhash:10].js';
+   const chunkFilename = [conf.assetsSubDirectory, env !== 'production'
+         ? 'chunk/[name].js'
+         : 'chunk/[name].[chunkhash:10].js'].join('/');
 
    const output = {
       path: conf.assetsRoot,
@@ -74,9 +76,5 @@ exports.computeStyleLoader = function(isProduction, loaders) {
 };
 
 exports.shouldReport = function() {
-   if (process.env.npm_config_report) {
-      return process.env.npm_config_report;
-   }
-
-   return process.argv.some(item => item === '--report');
+   return process.argv.some(item => item === '--env.REPORT');
 };

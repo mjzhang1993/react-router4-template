@@ -11,10 +11,10 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.0.0/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.0.1/workbox-sw.js");
 
 importScripts(
-  "/test/precache-manifest.822fb615fbb24eb4898d47fe87f3c567.js"
+  "/precache-manifest.05c2434c6975b162801849a66b127d45.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "webpack-pwa"});

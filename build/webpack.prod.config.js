@@ -1,25 +1,31 @@
 'use strict';
 /* eslint-disable */
 
+const utils = require('./utils');
+const config = require('../config/index');
+const common = config.common;
+const currentConfig = config.production;
+
+// 设置环境变量
+if (!process.env.NODE_ENV) {
+   process.env.NODE_ENV = JSON.parse(currentConfig.env.NODE_ENV);
+}
+
 /*
    production 环境下 webpack 配置文件，安装 plugins
 */
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.config');
-const utils = require('./utils');
-const config = require('../config/index');
-const common = config.common;
-const current = utils.getEnvAndConf(config);
 
 // 打包信息展示插件
 let reportPlugin = [];
 
-if (current.conf.bundleAnalyzerReport) {
+if (currentConfig.bundleAnalyzerReport) {
    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
    reportPlugin.push(new BundleAnalyzerPlugin());
@@ -28,15 +34,16 @@ if (current.conf.bundleAnalyzerReport) {
 // workbox 插件
 let workboxPlugin = [];
 
-if (current.conf.needWorkboxSW) {
+if (currentConfig.needWorkboxSW) {
    const WorkboxPlugin = require('workbox-webpack-plugin');
    const defaultConfig = {
       cacheId: 'webpack-pwa',
       skipWaiting: true,
       clientsClaim: true,
       swDest: 'service-wroker.js',
-      globPatterns: ['**/*.{html,js,css,png.jpg}'],
-      globIgnores: [ 'service-wroker.js' ],
+      // 一下两个配置不在需要
+      // globPatterns: ['**/*.{html,js,css,png.jpg}'],
+      // globIgnores: [ 'service-wroker.js' ],
       runtimeCaching: [
          {
             urlPattern: /.*\.js/,
@@ -44,45 +51,59 @@ if (current.conf.needWorkboxSW) {
          }
       ]
    };
-   workboxPlugin.push(new WorkboxPlugin.GenerateSW(current.conf.workboxConfig || defaultConfig));
+   workboxPlugin.push(new WorkboxPlugin.GenerateSW(currentConfig.workboxConfig || defaultConfig));
 }
 
 module.exports = merge(baseWebpackConfig, {
-   devtool: current.conf.productionSourceMap ? '#source-map' : false,
+   mode: 'production',
+   devtool: currentConfig.productionSourceMap ? '#source-map' : false,
    module: {
       rules: [
          {
             test: /\.(scss|sass|css)$/,
             include: common.sourceCode,
-            use: ExtractTextPlugin.extract({
-               fallback: 'style-loader',
-               use: utils.computeStyleLoader(true, ['css-loader', 'postcss-loader', 'sass-loader'])
-            })
+            use: [
+               MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'
+            ]
          }
       ]
+   },
+   optimization: {
+      splitChunks: {
+         cacheGroups:{
+            commons: {
+               chunks: 'initial',
+               minChunks: 2,
+               maxInitialRequests: 5,
+               minSize: 0
+            },
+            vendor: {
+               test: /node_modules/,
+               chunks: 'initial',
+               name: 'vendor',
+               priority: 10,
+               enforce: true,
+            },
+            styles: {
+               name: 'styles',
+               test: /\.scss$/,
+               chunks: 'all',
+               enforce: true,
+            }
+         }
+      },
+      runtimeChunk: {
+         name: 'runtime'
+      },
    },
    plugins: [
       new CleanWebpackPlugin(['dist'], { root: common.context }),
       new webpack.HashedModuleIdsPlugin(),
       new webpack.optimize.ModuleConcatenationPlugin(),
-      new webpack.DefinePlugin({ 'process.env.NODE_ENV': current.conf.env.NODE_ENV }),
-      new ExtractTextPlugin({
-         filename: utils.resolve(current.conf.assetsSubDirectory)('css/[name].[contenthash:10].css'),
-         disable: false,
-         allChunks: true
-      }),
       new OptimizeCSSPlugin({ cssProcessorOptions: { safe: true } }),
-      new webpack.optimize.UglifyJsPlugin({
-         compress: {
-            warnings: false,
-            drop_debugger: true,
-            drop_console: true
-         },
-         comments: false,
-         space_colon: false
+      new MiniCssExtractPlugin({
+         filename: utils.resolve(currentConfig.assetsSubDirectory)('css/[name].[contenthash].css')
       }),
-      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
-      new webpack.optimize.CommonsChunkPlugin({ name: 'runtime' }),
       new CopyWebpackPlugin([
          {
             from: 'src/manifest.json',

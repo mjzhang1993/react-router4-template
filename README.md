@@ -2,26 +2,26 @@
 
 ### 重要更新
 
-- 2018.03.19 : 去除 "react-router-redux" 模块，增加 PWA 配置，增加配置发布目录
+- 2018.04.08 : 更新 webpack 为 4.x 版本，整体进行版本升级
 
 ## 重要文件版本
 
 > 更多版本信息查看 package.json 文件
 
-* "react": "^16.2.0"
-* "react-hot-loader": "^4.0.0-beta.12"
-* "react-redux": "^5.0.6"
+* "react": "^16.3.1"
+* "react-hot-loader": "^4.0.1"
+* "react-redux": "^5.0.7"
 * "react-router-dom": "^4.2.2"
-* "~~react-router-redux~~": "^5.0.0-alpha.9"
 * "redux": "^3.7.2"
 
 * "babel-core": "^6.26.0",
-* "babel-eslint": "^8.1.2",
-* "babel-loader": "^7.1.2",
-* "eslint": "^4.14.0",
-* "postcss-loader": "^2.0.10",
-* "webpack": "^3.10.0",
-* "webpack-dev-server": "^2.9.7",
+* "babel-eslint": "^8.2.2",
+* "babel-loader": "^7.1.4",
+* "eslint": "^4.19.1",
+* "postcss-loader": "^2.1.3",
+* "webpack": "^4.5.0",
+* "webpack-dev-server": "^3.1.2",
+* "webpack-cli": "^2.0.14",
 
 ## 命令
 
@@ -46,7 +46,7 @@
 #### 3. 输出生产环境，并查看模块分配
 
 ```bash
-   yarn run build --report
+   yarn run report
 ```
 
 #### 4. 运行本地开发服务器
@@ -70,8 +70,6 @@
 ```
    ├── README.md
    ├── build                        // webpack 构建工具配置文件夹
-   │   ├── build.js                 // 生产环境启动
-   │   ├── dev-server.js            // 开发环境启动
    │   ├── utils.js                 // 一些工具文件
    │   ├── webpack.base.config.js   // 基础 webpack 配置文件
    │   ├── webpack.dev.config.js    // 开发环境配置
