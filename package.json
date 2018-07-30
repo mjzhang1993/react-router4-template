@@ -14,7 +14,6 @@
    "homepage": ".",
    "dependencies": {
       "axios": "^0.18.0",
-      "postcss-safe-parser": "^4.0.1",
       "prop-types": "^15.6.2",
       "react": "^16.4.1",
       "react-dom": "^16.4.1",
@@ -56,6 +55,7 @@
       "nodemon": "^1.18.3",
       "optimize-css-assets-webpack-plugin": "^5.0.0",
       "postcss-loader": "^2.1.6",
+      "postcss-safe-parser": "^4.0.1",
       "sass-loader": "^7.0.3",
       "style-loader": "^0.21.0",
       "url-loader": "^1.0.1",

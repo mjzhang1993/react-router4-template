@@ -32,7 +32,7 @@ module.exports = merge(baseWebpackConfig, {
    },
    optimization: {
       splitChunks: {
-         cacheGroups:{
+         cacheGroups: {
             commons: {
                chunks: 'initial',
                minChunks: 2,
@@ -44,7 +44,7 @@ module.exports = merge(baseWebpackConfig, {
                chunks: 'initial',
                name: 'vendor',
                priority: 10,
-               enforce: true,
+               enforce: true
             }
          }
       },
@@ -63,7 +63,7 @@ module.exports = merge(baseWebpackConfig, {
       contentBase: currentConfig.assetsRoot,
       publicPath: currentConfig.assetsPublicPath,
       historyApiFallback: true,
-//    clientLogLevel: 'none',
+      //    clientLogLevel: 'none',
       hot: true,
       inline: true,
       compress: true,
