@@ -13,3 +13,8 @@ export function postNewMember(newMember) {
    }
    return post('/list', newMember).then(res => res.data);
 }
+
+export function test(){
+    
+    return 'thi si test'
+}
