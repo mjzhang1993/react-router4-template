@@ -16,5 +16,5 @@ export function postNewMember(newMember) {
 
 export function test(){
     
-    return "thi si   test"
+    return "thi si test"
 }
