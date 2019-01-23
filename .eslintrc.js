@@ -15,6 +15,20 @@ module.exports = {
       node: true,
       es6: true
    },
+   globals: {
+      "React": true,
+      "ReactDOM": true,
+      "$": true,
+      "_": true,
+      "moment": true,
+      "Radium": true,
+      "Immutable": true,
+      "ImmutableMap": true,
+      "ImmutableList": true,
+      "ImmutableSet": true,
+      "ImmutableOrigin": true,
+      "Antd": true
+   },
    rules: {
       // Common js rules
       'brace-style': [

@@ -1,0 +1,15 @@
+[ignore]
+
+[include]
+node_modules/
+
+[libs]
+src/interfaces/
+
+
+[lints]
+
+[options]
+module.name_mapper='^.*\.less$' -> 'css-module-flow'
+
+[strict]

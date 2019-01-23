@@ -2,6 +2,7 @@
 /*
    webapck 基础配置
 */
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 根据模板生成 HTML
 const packageConfig = require('../package.json');
 const config = require('../config/index');
@@ -78,6 +79,15 @@ module.exports = {
          xhtml: true,
          cache: false
          // favicon: ''
-      })
+      }),
+      new webpack.ProvidePlugin({
+         React: 'react',
+         _: 'lodash',
+         ImmutableOrigin: ['immutable'],
+         ImmutableMap: ['immutable', 'Map'],
+         ImmutableList: ['immutable', 'List'],
+         ImmutableSet: ['immutable', 'Set'],
+         Immutable: ['immutable', 'fromJS']
+      }),
    ]
 };

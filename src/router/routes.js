@@ -6,12 +6,13 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 
 import lazyLoad from './lazyLoad';
-import App from '../containers/App';
+import RootContainer from '../modules/Root/view/RootContainer';
 // import Home from '../containers/Home';
 // import Test from '../containers/Test';
 
-const Home = lazyLoad(() => import(/* webpackChunkName: "Home" */ '../containers/Home'));
-const Test = lazyLoad(() => import(/* webpackChunkName: "Test" */ '../containers/Test'));
+const Home = lazyLoad(() => import(/* webpackChunkName: "Home" */ '../modules/Home'));
+const HomeTwo = lazyLoad(() => import(/* webpackChunkName: "HomeTwo" */ '../modules/HomeTwo'));
+const Test = lazyLoad(() => import(/* webpackChunkName: "Test" */ '../modules/Test/view/TestContainer'));
 
 const Root = () => (
    <div>
@@ -19,14 +20,15 @@ const Root = () => (
          <Route
             path="/"
             render={props => (
-               <App>
+               <RootContainer>
                   <Switch>
                      <Route path="/" exact component={Home} />
+                     <Route path="/homeTwo" component={HomeTwo} />
                      <Route path="/home" component={Home} />
                      <Route path="/test" component={Test} />
                      <Route render={() => <Redirect to="/" />} />
                   </Switch>
-               </App>
+               </RootContainer>
             )}
          />
          <Route render={() => <Redirect to="/" />} />

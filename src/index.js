@@ -10,14 +10,14 @@
 const publicPath = assetsPublicPath;
 // assetsPublicPath 在 /config/index.js 中配置，由 imports-loader 注入
 
-import './scss/index.scss';
+import './styles/index.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 
-import store from './store/index';
+import store from './ReduxStore';
 import Root from './router/routes';
 
 const mountNode = document.getElementById('app');
