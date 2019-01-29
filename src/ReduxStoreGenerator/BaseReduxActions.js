@@ -1,15 +1,17 @@
 // @flow
 
 /*
-* 基础的 Redux Actions
-* - 即为 Redux 概念中的 actionCreator 集合
-* */
-import _ from 'lodash'
+ * 基础的 Redux Actions
+ * - 即为 Redux 概念中的 actionCreator 集合
+ * */
 
 export default class BaseReduxActions {
   ActionTypes: Object;
-  constructor(ActionTypes: Object) {
+  storeNamePath: ?Array<string>;
+  constructor(ActionTypes: Object, storeNamePath?: Array<string>) {
     this.ActionTypes = ActionTypes;
+    this.storeNamePath = storeNamePath;
+    (this: any).globalHandleError = this.globalHandleError.bind(this);
   }
 
   // 必须被复写
@@ -19,6 +21,16 @@ export default class BaseReduxActions {
 
   get state(): ImmutableMap<string, any> {
     return this.Store.getState();
+  }
+
+  get currentState(): ?ImmutableMap<string, any> {
+    const state = this.state;
+
+    if (!state || !_.isArray(this.storeNamePath)) {
+      throw new Error('can not use "currentState" please check ');
+    }
+
+    return state.getIn(this.storeNamePath);
   }
 
   // 随着 Store 改变不需要复写
@@ -34,15 +46,25 @@ export default class BaseReduxActions {
   updateStoreData(data: Object) {
     this.dispatch({
       type: this.ActionTypes.UPDATE_STORE_DATA,
-      data
-    })
+      data,
+    });
   }
 
   resetStoreData() {
     this.dispatch({
-      type: this.ActionTypes.RESET_STORE_DATA
+      type: this.ActionTypes.RESET_STORE_DATA,
     });
+  }
 
+  globalHandleSuccess(data: {message: string}): void {
+    const globalActions = this.getGlobalActions();
+
+    // 没有 globalActions 则不对错误进行处理
+    if (!_.isObject(globalActions)) {
+      return;
+    }
+
+    return globalActions.handleSuccess(data);
   }
 
   globalHandleError(error: Object): void {
@@ -65,8 +87,9 @@ export default class BaseReduxActions {
       case 0:
         return _.isFunction(globalActions.handleError0) && globalActions.handleError0(error);
       default:
-        return _.isFunction(globalActions.handleErrorDefault) && globalActions.handleErrorDefault(error);
+        return (
+          _.isFunction(globalActions.handleErrorDefault) && globalActions.handleErrorDefault(error)
+        );
     }
   }
 }
-

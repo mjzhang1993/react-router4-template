@@ -1,3 +1,3 @@
-import {BaseActionTypesCreator} from '../../../ReduxStore'
+import BaseActionTypesCreator from '../../../ReduxStore/BaseActionTypesCreator'
 
 export default BaseActionTypesCreator('testSecond', {})

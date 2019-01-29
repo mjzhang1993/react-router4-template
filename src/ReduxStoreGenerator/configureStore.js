@@ -4,9 +4,7 @@
    store的创建函数
 */
 
-import { compose, createStore, applyMiddleware } from 'redux';
-// 引入thunk 中间件，处理异步操作
-// import thunk from 'redux-thunk';
+import {compose, createStore, applyMiddleware} from 'redux';
 
 const middleware = [];
 
@@ -16,15 +14,19 @@ const shouldCompose =
    typeof window === 'object' &&
    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
-export default function (
+export default function(
   reducer: Function,
   defaultState: ImmutableMap<string, any>,
   newMiddleware?: Array<Function> = [],
-  reduxDevToolConfig?: Object
+  reduxDevToolConfig?: Object,
 ) {
   const composeEnhancers = shouldCompose
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(reduxDevToolConfig || {})
     : compose;
 
-  return createStore(reducer, defaultState, composeEnhancers(applyMiddleware(...middleware, ...newMiddleware)));
+  return createStore(
+    reducer,
+    defaultState,
+    composeEnhancers(applyMiddleware(...middleware, ...newMiddleware)),
+  );
 }

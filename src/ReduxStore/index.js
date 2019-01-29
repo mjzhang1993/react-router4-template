@@ -1,10 +1,10 @@
 // @flow
 
 /*
-* store 创建
-* */
+ * store 创建
+ * */
 
-import {generateStore, BaseActionTypesCreator, OriginalReduxActions} from '../ReduxStoreGenerator';
+import {generateStore, OriginalReduxActions} from '../ReduxStoreGenerator';
 import RootReducer from '../modules/Root/RootReducer';
 import TestReducer from '../modules/Test/TestReducer';
 
@@ -13,12 +13,15 @@ const store = generateStore({
   test: TestReducer
 }, [], {name: 'global'});
 
-class GlobalReduxActions extends OriginalReduxActions{
+class GlobalReduxActions extends OriginalReduxActions {
+  get Store(): Object {
+    return store;
+  }
   getGlobalActions() {
     return this;
   }
 }
 
-export {BaseActionTypesCreator, GlobalReduxActions};
+export {GlobalReduxActions};
 
 export default store;

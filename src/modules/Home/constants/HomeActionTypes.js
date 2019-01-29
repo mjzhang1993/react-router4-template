@@ -1,4 +1,4 @@
-import {BaseActionTypesCreator} from '../../../ReduxStore'
+import BaseActionTypesCreator from '../../../ReduxStore/BaseActionTypesCreator'
 
 export default function createHomeActionTypes(storeName) {
   return BaseActionTypesCreator(storeName, {
