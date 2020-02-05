@@ -15,5 +15,5 @@ export function postNewMember(newMember) {
 }
 
 export function test() {
-  return 'th isi test -1 ';
+  return 'th isi test -2 ';
 }
