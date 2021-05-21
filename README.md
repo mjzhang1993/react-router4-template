@@ -5,6 +5,7 @@
 * master 分支与 v1.0.0 tag 是 webpack 3.x 的版本
 * webpack-v4-template 分支与 v2.0.0 tag 是 webpack 4.x 的版本
 * enhance-redux redux 状态管理升级版本
+* *最新的构建改为了使用 mobx, 源码参考地址 https://github.com/mjzhang1993/react-mobx-template/tree/master*
 
 ### 重要更新
 
