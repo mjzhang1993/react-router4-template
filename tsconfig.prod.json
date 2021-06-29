@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noUnusedLocals": true
+  },
+  "include": [
+    "typings/**/*",
+    "src/**/*"
+  ]
+}

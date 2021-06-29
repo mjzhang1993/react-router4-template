@@ -1,0 +1,6 @@
+# Browsers that we support
+
+>0.1%
+last 4 versions
+Firefox ESR
+not ie <= 8

@@ -12,3 +12,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 .tags*
+
+# cache
+tsconfig.prod.tsbuildinfo
+
+# husky
+./.husky/_

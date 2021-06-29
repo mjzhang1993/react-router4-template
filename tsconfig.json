@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "preserve",
+    "noEmit": true,
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "importHelpers": false,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": false,
+    "useDefineForClassFields": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./src",
+    "incremental": true, // 增量编译，加快速度
+    "allowUmdGlobalAccess": true,
+    "downlevelIteration": true,
+    "paths": {
+      "store/*": [
+        "src/store/*"
+      ]
+    },
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+  },
+  "include": [
+    "typings/**/*",
+    "src/**/*"
+  ]
+}
